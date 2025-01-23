@@ -1,0 +1,128 @@
+/* styles/style.css */
+/*<link href="styles/style.css" rel="stylesheet" type="text/css">*/
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Share Tech Mono', monospace;
+  background: radial-gradient(circle, #001f3f, #000);
+  color: #0f0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  overflow: hidden;
+}
+
+h1 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  color: #0f0;
+  text-shadow: 0 0 10px #00ff00, 0 0 20px #0f0;
+  animation: glow 2s infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 0 0 10px #0f0, 0 0 20px #00ff00;
+  }
+  to {
+    text-shadow: 0 0 20px #00ff00, 0 0 40px #0f0;
+  }
+}
+
+p {
+  font-size: 1.2rem;
+  text-align: center;
+  margin: 10px 0;
+  color: #0f0;
+  text-shadow: 0 0 5px #0f0, 0 0 10px #00ff00;
+}
+
+.form {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+input[type="text"] {
+  padding: 10px;
+  font-size: 1rem;
+  border: 2px solid #0f0;
+  background: #000;
+  color: #0f0;
+  border-radius: 10px;
+  box-shadow: 0 0 5px #0f0;
+  outline: none;
+  transition: 0.3s;
+}
+
+input[type="text"]:focus {
+  box-shadow: 0 0 10px #00ff00;
+}
+
+input[type="submit"], .reset {
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #000;
+  background: #0f0;
+  border: 2px solid #0f0;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+input[type="submit"]:hover, .reset:hover {
+  background: #000;
+  color: #0f0;
+  border: 2px solid #00ff00;
+  box-shadow: 0 0 10px #00ff00;
+}
+
+.informations p {
+  margin: 5px 0;
+  font-size: 1rem;
+  animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+table {
+  border-collapse: collapse;
+  width: 80%;
+  margin: 20px auto;
+  color: #0f0;
+}
+
+th, td {
+  border: 1px solid #0f0;
+  text-align: center;
+  padding: 10px;
+}
+
+th {
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  background: #001f3f;
+}
+
+td {
+  font-size: 1rem;
+}
+
+tbody tr:nth-child(odd) {
+  background: rgba(0, 255, 0, 0.1);
+}

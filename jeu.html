@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="styles/style.css" rel="stylesheet" type="text/css">
+    <title>Jeu : Devinez un nombre</title>
+  </head>
+  <body>
+    <h1>Jeu : Devinez un nombre</h1>
+    <div id="login">
+      <label for="username">Nom d'utilisateur (facultatif) :</label>
+      <input type="text" id="username" placeholder="Entrez votre pseudo">
+      <input type="submit" id="loginButton" value="Jouer">
+    </div>
+
+    <div id="game" style="display: none;">
+      <p>Un nombre entre 1 et 100 a été choisi. Essayez de deviner !</p>
+      <div class="form">
+        <label for="proposition">Votre proposition :</label>
+        <input type="text" id="proposition" placeholder="Entrez un nombre">
+        <input type="submit" id="envoyer" value="Envoyer">
+        <button class="reset" id="reset">Reset</button>
+      </div>
+      <div class="informations">
+        <p class="resultat"></p>
+        <p class="tropHautTropBas"></p>
+        <p class="tentatives"></p>
+      </div>
+    </div>
+
+    <h2>Tableau des scores</h2>
+    <table id="scoreTable">
+      <thead>
+        <tr>
+          <th>Rang</th>
+          <th>Utilisateur</th>
+          <th>Score Total</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <script src="scripts/jeu.js"></script>
+  </body>
+</html>

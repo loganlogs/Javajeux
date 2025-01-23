@@ -2,11 +2,22 @@
   "version": 2,
   "builds": [
     {
-      "src": "Javajeux/**",
+      "src": "jeu.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "styles/*",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "scripts/*",
       "use": "@vercel/static"
     }
   ],
   "routes": [
-    { "src": "/", "dest": "/Javajeux/jeu.html" }
+    {
+      "src": "/",
+      "dest": "/jeu.html"
+    }
   ]
 }

@@ -98,3 +98,108 @@ input[type="submit"]:hover, .reset:hover {
     transform: translateY(0);
   }
 }
+
+table {
+  border-collapse: collapse;
+  width: 80%;
+  margin: 20px auto;
+  color: #0f0;
+}
+
+th, td {
+  border: 1px solid #0f0;
+  text-align: center;
+  padding: 10px;
+}
+
+th {
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  background: #001f3f;
+}
+
+td {
+  font-size: 1rem;
+}
+
+tbody tr:nth-child(odd) {
+  background: rgba(0, 255, 0, 0.1);
+}
+
+/* Responsiveness */
+@media screen and (max-width: 768px) {
+  body {
+    height: auto;
+    padding: 20px;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+  }
+
+  p {
+    font-size: 1rem;
+  }
+
+  .form {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  input[type="text"] {
+    font-size: 0.9rem;
+    padding: 8px;
+    width: 100%;
+  }
+
+  input[type="submit"], .reset {
+    font-size: 0.9rem;
+    padding: 8px 16px;
+  }
+
+  table {
+    width: 90%;
+  }
+
+  th, td {
+    font-size: 0.9rem;
+    padding: 8px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  h1 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+  }
+
+  p {
+    font-size: 0.9rem;
+  }
+
+  .form {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  input[type="text"] {
+    font-size: 0.8rem;
+    width: 100%;
+  }
+
+  input[type="submit"], .reset {
+    font-size: 0.8rem;
+    padding: 10px;
+    width: 100%;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  th, td {
+    font-size: 0.8rem;
+    padding: 6px;
+  }
+}

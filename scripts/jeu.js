@@ -25,6 +25,31 @@ let randomNumber;
 let compteur = 0;
 let score = 0;
 
+// Fonction pour calculer un score en fonction des tentatives
+function calculateScore(attempts) {
+  return Math.max(100 - (attempts * 25), 0); // Limite le score à 0 minimum
+}
+
+// Fonction pour soumettre le score à Firebase
+function submitScore(username, attempts) {
+  const score = calculateScore(attempts);
+
+  if (score > 100) {
+    console.error("Le score ne peut pas dépasser 100 !");
+    return;
+  }
+
+  if (username && score >= 0) {
+    firebase.database().ref('scores').push({
+      username: username,
+      score: score,
+      attempts: attempts
+    });
+  } else {
+    console.error("Données invalides !");
+  }
+}
+
 // Gestion de la connexion via cookie
 if (!userId) {
   const loginDiv = document.getElementById("login");
@@ -99,10 +124,10 @@ function verifier() {
   compteur++;
 
   if (proposition === randomNumber) {
-    score = Math.max(100 - compteur * 10, 0); // Calcul du score
+    score = calculateScore(compteur); // Utilisation de calculateScore
     document.querySelector(".resultat").textContent = `Bravo ${username || "Invité"} ! Vous avez trouvé en ${compteur} tentatives. 🎉`;
     document.querySelector(".tentatives").textContent = `Score gagné : ${score} points.`;
-    sauvegarderScore(username, score);
+    submitScore(username, compteur); // Appel de submitScore
     afficherScores(); // Met à jour le tableau des scores
     finDeJeu();
   } else if (proposition < randomNumber) {
@@ -126,39 +151,6 @@ function finDeJeu() {
   document.getElementById("envoyer").disabled = true;
   document.getElementById("proposition").disabled = true;
   document.getElementById("reset").style.display = "inline"; // Affiche le bouton Reset
-}
-
-// Sauvegarder ou ajouter des points pour un utilisateur
-function sauvegarderScore(username, points) {
-  const userRef = ref(db, `scores/${userId}`);
-
-  // Récupérer les points actuels de l'utilisateur avant de les ajouter
-  get(userRef).then((snapshot) => {
-    if (snapshot.exists()) {
-      const existingData = snapshot.val();
-      const newScore = existingData.score + points; // Ajouter les nouveaux points
-      set(userRef, {
-        username: username,
-        score: newScore // Mettre à jour avec le score cumulé
-      }).then(() => {
-        console.log("Score mis à jour avec succès !");
-      }).catch((error) => {
-        console.error("Erreur lors de l'enregistrement du score :", error);
-      });
-    } else {
-      // Si l'utilisateur n'a pas encore de score enregistré, on l'ajoute directement
-      set(userRef, {
-        username: username,
-        score: points // Enregistrer les premiers points
-      }).then(() => {
-        console.log("Score ajouté pour la première fois !");
-      }).catch((error) => {
-        console.error("Erreur lors de l'enregistrement du score :", error);
-      });
-    }
-  }).catch((error) => {
-    console.error("Erreur lors de la récupération du score :", error);
-  });
 }
 
 // Afficher les scores dans le tableau

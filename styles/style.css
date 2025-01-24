@@ -16,6 +16,7 @@ body {
   height: 100vh;
   overflow: hidden;
   padding: 20px;
+  text-align: center; /* Centre le texte à l'intérieur du body */
 }
 
 h1 {
@@ -39,17 +40,19 @@ h1 {
 p, .resultat, .tropHautTropBas {
   font-size: 1.2rem;
   color: #8aff80; /* Texte en vert clair */
-  text-align: center;
   margin: 10px 0;
   text-shadow: 0 0 5px #00ff00, 0 0 10px #8aff80;
 }
 
 /* Connexion et formulaire du jeu */
-#login {
+#login, #game {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  width: 100%; /* Prendre toute la largeur disponible */
+  max-width: 500px; /* Limite de largeur */
+  text-align: center; /* Centre le texte dans ces sections */
 }
 
 input[type="text"], input[type="number"], button {
@@ -63,6 +66,8 @@ input[type="text"], input[type="number"], button {
   margin: 10px;
   outline: none;
   transition: 0.3s ease;
+  width: 100%; /* Pour que les éléments prennent toute la largeur disponible */
+  max-width: 300px; /* Limite de largeur */
 }
 
 input[type="text"]:focus, input[type="number"]:focus {
@@ -76,24 +81,9 @@ button:hover {
   box-shadow: 0 0 10px #00ff00;
 }
 
-#game {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-button#reset {
-  display: none;
-  background-color: #8aff80; /* Vert clair pour le bouton */
-  color: #000;
-  font-weight: bold;
-  text-transform: uppercase;
-  cursor: pointer;
-  border-radius: 5px;
-  border: none;
-  padding: 10px 20px;
-  box-shadow: 0 0 10px #00ff00;
+button {
+  display: inline-block;
+  text-align: center; /* Centre le texte du bouton */
 }
 
 /* Style de la table des scores */
@@ -104,9 +94,11 @@ button#reset {
   border: 2px solid #4CAF50; /* Bordure verte */
   border-radius: 10px;
   margin-top: 20px;
+  max-width: 500px; /* Limite de largeur pour la table */
+  margin-left: auto;
+  margin-right: auto;
 }
 
-/* Style de la scrollbar */
 #scoreTableContainer::-webkit-scrollbar {
   width: 12px;
 }

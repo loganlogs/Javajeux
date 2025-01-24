@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
-import { getDatabase, ref, set, push, onValue, query, orderByChild, equalTo, get } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-database.js";
+import { getDatabase, ref, set, onValue, get } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-database.js";
 import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js";
 
 // Config Firebase
@@ -36,10 +36,11 @@ if (!userId) {
   loginButton.addEventListener("click", async () => {
     username = usernameInput.value.trim();
 
-    // Validation : autoriser uniquement les lettres
+    // Validation : autoriser uniquement les lettres (A-Z, a-z)
     const usernameRegex = /^[a-zA-Z]+$/;
     if (!usernameRegex.test(username)) {
       alert("Le pseudo ne peut contenir que des lettres (A-Z, a-z). Pas de chiffres, espaces ou caractères spéciaux.");
+      usernameInput.value = ''; // On efface l'entrée utilisateur
       return;
     }
 

@@ -9,7 +9,31 @@
   <body>
     <h1>Jeu : Devinez un nombre</h1>
 
-    <!-- Partie du tableau des scores -->
+    <div id="login">
+      <label for="username">Nom d'utilisateur (facultatif) :</label>
+      <input type="text" id="username" placeholder="Entrez votre pseudo">
+      <input type="submit" id="loginButton" value="Jouer">
+    </div>
+
+    <div id="game" style="display: none;">
+      <p>Un nombre entre 1 et 100 a été choisi. Essayez de deviner !</p>
+      <div class="form">
+        <label for="proposition">Votre proposition :</label>
+        <input type="text" id="proposition" placeholder="Entrez un nombre">
+        
+        <!-- Change le input[type="submit"] en button pour le bouton "Envoyer" -->
+        <button class="envoyer" id="envoyer">Envoyer</button>
+        
+        <button class="reset" id="reset" style="display:none;">Reset</button>
+      </div>
+      <div class="informations">
+        <p class="resultat"></p>
+        <p class="tropHautTropBas"></p>
+        <p class="tentatives"></p>
+      </div>
+    </div>
+
+    <h2>Tableau des scores</h2>
     <div id="scoreTableContainer">
       <table id="scoreTable">
         <thead>
@@ -20,31 +44,9 @@
           </tr>
         </thead>
         <tbody>
-          <!-- Les scores seront ajoutés ici dynamiquement -->
+          <!-- Les scores seront ajoutés ici -->
         </tbody>
       </table>
-    </div>
-
-    <!-- Div de Connexion -->
-    <div id="login" class="form" style="display:none;">
-      <!-- Formulaire de pseudo -->
-      <input type="text" id="username" placeholder="Entrez votre pseudo" />
-      <button id="loginButton">Se connecter</button>
-    </div>
-
-    <!-- Div du jeu -->
-    <div id="game" style="display:none;">
-      <!-- Affichage du jeu avec les entrées utilisateur -->
-      <div class="form">
-        <input type="number" id="proposition" placeholder="Proposez un nombre" />
-        <button id="envoyer">Envoyer</button>
-      </div>
-      <div class="tropHautTropBas"></div>
-      <div class="resultat"></div>
-      <div class="tentatives"></div>
-      <div class="form">
-        <button id="reset" style="display:none;">Réinitialiser</button>
-      </div>
     </div>
 
     <script type="module" src="scripts/jeu.js"></script>

@@ -102,3 +102,57 @@ input[type="submit"]:hover, .reset:hover {
   color: #0f0;
   border: 2px solid #0f0;
 }
+/* Conteneur pour le tableau des scores avec scroll */
+#scoreTableContainer {
+  max-height: 500px; /* Hauteur max du tableau avant de montrer le scroll */
+  overflow-y: auto; /* Ajoute une barre de défilement verticale si nécessaire */
+  margin-top: 20px;
+  border: 2px solid #0f0; /* Bordure verte autour du tableau */
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.7); /* Fond noir légèrement transparent */
+  padding: 10px;
+  width: 80%; /* Largeur du conteneur à 80% de l'écran */
+  box-shadow: 0 0 15px #00ff00; /* Ombre verte pour le conteneur */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Style du tableau des scores */
+#scoreTable {
+  width: 100%; /* Le tableau prend toute la largeur du conteneur */
+  border-collapse: collapse; /* Pas d'espaces entre les cellules */
+  font-size: 1.1rem; /* Taille de police agréable */
+}
+
+#scoreTable th, #scoreTable td {
+  padding: 12px 20px; /* Espacement à l'intérieur des cellules */
+  text-align: center; /* Texte centré */
+  border: 1px solid #0f0; /* Bordure verte autour des cellules */
+  color: #0f0; /* Texte vert */
+}
+
+#scoreTable th {
+  background: rgba(0, 255, 0, 0.2); /* Fond vert clair pour les en-têtes */
+  font-weight: bold; /* Met les en-têtes en gras */
+}
+
+#scoreTable tr:nth-child(odd) {
+  background: rgba(0, 255, 0, 0.1); /* Fond vert clair pour les lignes impaires */
+}
+
+#scoreTable tr:hover {
+  background: rgba(0, 255, 0, 0.3); /* Survol des lignes avec une couleur plus foncée */
+}
+
+/* Adapter le tableau aux petits écrans */
+@media (max-width: 768px) {
+  #scoreTableContainer {
+    width: 100%; /* Sur les écrans plus petits, le tableau prend toute la largeur */
+  }
+
+  #scoreTable th, #scoreTable td {
+    font-size: 1rem; /* Réduit la taille des textes sur petits écrans */
+    padding: 10px; /* Réduit l'espacement sur petits écrans */
+  }
+}
+

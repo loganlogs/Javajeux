@@ -33,34 +33,34 @@ if (!userId) {
   const loginButton = document.getElementById("loginButton");
 
   // Si pas de cookie, on demande un pseudo
-  loginButton.addEventListener("click", async () => {
-    username = usernameInput.value.trim();
-    if (username === "") {
-      alert("Veuillez entrer un pseudo !");
-      return;
-    }
-    // Connexion avec un nouveau pseudo
-    signInAnonymously(auth).then(() => {
-      userId = auth.currentUser.uid;
-      localStorage.setItem("userId", userId);
-      localStorage.setItem("username", username);
-      console.log("Utilisateur connecté anonymement !");
-      loginDiv.style.display = "none";
-      gameDiv.style.display = "block";
-      startGame();
-      afficherScores(); // Charger les scores dès la connexion
-    }).catch((error) => console.error("Erreur d'authentification :", error));
-  });
-} else {
-  // Si déjà connecté avec cookie, on charge le jeu directement
-  const loginDiv = document.getElementById("login");
-  const gameDiv = document.getElementById("game");
-  loginDiv.style.display = "none";
-  gameDiv.style.display = "block";
-  username = localStorage.getItem("username");
-  startGame();
-  afficherScores(); // Charger les scores dès la connexion
-}
+loginButton.addEventListener("click", async () => {
+  username = usernameInput.value.trim();
+
+  // Validation : autoriser uniquement les lettres majuscules et minuscules
+  const usernameRegex = /^[a-zA-Z]+$/; // Regex pour valider uniquement les lettres
+
+  if (!usernameRegex.test(username)) {
+    alert("Le pseudo ne peut contenir que des lettres (A-Z, a-z). Pas de chiffres, espaces ou caractères spéciaux.");
+    return;
+  }
+
+  if (username === "") {
+    alert("Veuillez entrer un pseudo !");
+    return;
+  }
+
+  // Connexion avec un nouveau pseudo
+  signInAnonymously(auth).then(() => {
+    userId = auth.currentUser.uid;
+    localStorage.setItem("userId", userId);
+    localStorage.setItem("username", username);
+    console.log("Utilisateur connecté anonymement !");
+    loginDiv.style.display = "none";
+    gameDiv.style.display = "block";
+    startGame();
+    afficherScores(); // Charger les scores dès la connexion
+  }).catch((error) => console.error("Erreur d'authentification :", error));
+});
 
 // Fonction pour démarrer une nouvelle partie
 function startGame() {

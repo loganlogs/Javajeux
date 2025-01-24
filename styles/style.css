@@ -48,7 +48,7 @@ p {
 
 input[type="text"] {
   padding: 10px;
-  font-size: 1.2rem;
+  font-size: 1rem;
   border: 2px solid #0f0;
   background: #000;
   color: #0f0;
@@ -96,62 +96,5 @@ input[type="submit"]:hover, .reset:hover {
   to {
     opacity: 1;
     transform: translateY(0);
-  }
-}
-
-/* Responsiveness */
-@media screen and (max-width: 768px) {
-  h1 {
-    font-size: 2.5rem;
-    margin-bottom: 15px;
-  }
-
-  p {
-    font-size: 1rem;
-  }
-
-  .form {
-    gap: 8px;
-  }
-
-  input[type="text"] {
-    font-size: 1rem;
-    padding: 8px;
-  }
-
-  input[type="submit"], .reset {
-    font-size: 0.9rem;
-    padding: 8px 16px;
-  }
-}
-
-@media screen and (max-width: 480px) {
-  h1 {
-    font-size: 2rem;
-    margin-bottom: 10px;
-  }
-
-  p {
-    font-size: 0.9rem;
-  }
-
-  .form {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  input[type="text"] {
-    width: 90%;
-    font-size: 0.9rem;
-  }
-
-  input[type="submit"], .reset {
-    font-size: 0.8rem;
-    padding: 10px;
-    width: 80%;
-  }
-
-  .informations p {
-    font-size: 0.9rem;
   }
 }

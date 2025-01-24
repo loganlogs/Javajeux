@@ -99,10 +99,10 @@ function verifier() {
   compteur++;
 
   if (proposition === randomNumber) {
-    score = calculateScore(compteur);
+    score = Math.max(100 - compteur * 10, 0); // Calcul du score
     document.querySelector(".resultat").textContent = `Bravo ${username || "Invité"} ! Vous avez trouvé en ${compteur} tentatives. 🎉`;
     document.querySelector(".tentatives").textContent = `Score gagné : ${score} points.`;
-    submitScore(username, compteur); // Soumission du score
+    sauvegarderScore(username, score);
     afficherScores(); // Met à jour le tableau des scores
     finDeJeu();
   } else if (proposition < randomNumber) {
@@ -128,34 +128,37 @@ function finDeJeu() {
   document.getElementById("reset").style.display = "inline"; // Affiche le bouton Reset
 }
 
-// Calculer le score
-function calculateScore(attempts) {
-  return Math.max(100 - (attempts * 10), 0); // Limite le score à 0 minimum
-}
+// Sauvegarder ou ajouter des points pour un utilisateur
+function sauvegarderScore(username, points) {
+  const userRef = ref(db, `scores/${userId}`);
 
-// Soumettre un score
-function submitScore(username, attempts) {
-  const score = calculateScore(attempts);
-
-  if (score > 100) {
-    console.error("Le score ne peut pas dépasser 100 !");
-    return;
-  }
-
-  if (username && score >= 0) {
-    const scoresRef = ref(db, 'scores'); // Utilise `db` pour accéder à la base de données
-    push(scoresRef, {
-      username: username,
-      score: score,
-      attempts: attempts
-    }).then(() => {
-      console.log("Score soumis avec succès !");
-    }).catch((error) => {
-      console.error("Erreur lors de la soumission du score :", error);
-    });
-  } else {
-    console.error("Données invalides !");
-  }
+  // Récupérer les points actuels de l'utilisateur avant de les ajouter
+  get(userRef).then((snapshot) => {
+    if (snapshot.exists()) {
+      const existingData = snapshot.val();
+      const newScore = existingData.score + points; // Ajouter les nouveaux points
+      set(userRef, {
+        username: username,
+        score: newScore // Mettre à jour avec le score cumulé
+      }).then(() => {
+        console.log("Score mis à jour avec succès !");
+      }).catch((error) => {
+        console.error("Erreur lors de l'enregistrement du score :", error);
+      });
+    } else {
+      // Si l'utilisateur n'a pas encore de score enregistré, on l'ajoute directement
+      set(userRef, {
+        username: username,
+        score: points // Enregistrer les premiers points
+      }).then(() => {
+        console.log("Score ajouté pour la première fois !");
+      }).catch((error) => {
+        console.error("Erreur lors de l'enregistrement du score :", error);
+      });
+    }
+  }).catch((error) => {
+    console.error("Erreur lors de la récupération du score :", error);
+  });
 }
 
 // Afficher les scores dans le tableau

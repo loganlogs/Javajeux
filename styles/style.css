@@ -1,7 +1,11 @@
-/* Corps de la page */
-body {
+/* Reset et style global */
+* {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+}
+
+body {
   font-family: 'Share Tech Mono', monospace;
   background: radial-gradient(circle, #001f3f, #000);
   color: #0f0;
@@ -11,6 +15,7 @@ body {
   justify-content: center;
   height: 100vh;
   overflow: hidden;
+  padding: 20px;
 }
 
 h1 {
@@ -30,116 +35,129 @@ h1 {
   }
 }
 
-p {
+/* Style des paragraphes */
+p, .resultat, .tropHautTropBas {
   font-size: 1.2rem;
+  color: #0f0;
   text-align: center;
   margin: 10px 0;
-  color: #0f0;
   text-shadow: 0 0 5px #0f0, 0 0 10px #00ff00;
 }
 
-/* Formulaire */
-.form {
-  margin-top: 20px;
+/* Connexion et formulaire du jeu */
+#login {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 10px;
 }
 
-input[type="text"], input[type="number"] {
+input[type="text"], input[type="number"], button {
   padding: 10px;
   font-size: 1rem;
+  border-radius: 10px;
   border: 2px solid #0f0;
   background: #000;
   color: #0f0;
-  border-radius: 10px;
   box-shadow: 0 0 5px #0f0;
+  margin: 10px;
   outline: none;
-  transition: 0.3s;
-  width: 100%;
-  max-width: 300px;
+  transition: 0.3s ease;
 }
 
 input[type="text"]:focus, input[type="number"]:focus {
   box-shadow: 0 0 10px #00ff00;
 }
 
-button {
-  padding: 10px 20px;
-  font-size: 1rem;
-  font-weight: bold;
-  text-transform: uppercase;
-  color: #000;
-  background: #0f0;
-  border: 2px solid #0f0;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: 0.3s;
-  width: 100%;
-  max-width: 150px;
-}
-
 button:hover {
-  background: #000;
+  background-color: #000;
   color: #0f0;
   border: 2px solid #00ff00;
   box-shadow: 0 0 10px #00ff00;
 }
 
-button:disabled {
-  background: #333;
-  color: #777;
-  cursor: not-allowed;
-  border: 2px solid #444;
+#game {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-#scoreTableContainer {
-  width: 80%;
-  max-width: 600px;
-  margin: 20px auto;
-  overflow-y: auto;
-}
-
-#scoreTable {
-  border-collapse: collapse;
-  width: 100%;
-  margin: 20px 0;
-  color: #0f0;
-}
-
-th, td {
-  border: 1px solid #0f0;
-  text-align: center;
-  padding: 10px;
-}
-
-th {
-  font-size: 1.2rem;
-  text-transform: uppercase;
-  background: #001f3f;
-}
-
-td {
-  font-size: 1rem;
-}
-
-tbody tr:nth-child(odd) {
-  background: rgba(0, 255, 0, 0.1);
-}
-
-/* Ajouter un style pour la barre de défilement */
-::-webkit-scrollbar {
-  width: 8px;
-  background-color: #000;
-}
-
-::-webkit-scrollbar-thumb {
+button#reset {
+  display: none;
   background-color: #0f0;
-  border-radius: 4px;
+  color: #000;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background-color: #00ff00;
+/* Style de la table des scores */
+#scoreTableContainer {
+  width: 100%;
+  max-height: 400px;
+  overflow-y: auto;
+  border: 2px solid #4CAF50;
+  border-radius: 10px;
+  margin-top: 20px;
 }
+
+/* Style de la scrollbar */
+#scoreTableContainer::-webkit-scrollbar {
+  width: 12px;
+}
+
+#scoreTableContainer::-webkit-scrollbar-thumb {
+  background-color: #4CAF50;
+  border-radius: 10px;
+}
+
+#scoreTableContainer::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
+  border-radius: 10px;
+}
+
+/* Tableaux des scores */
+#scoreTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+#scoreTable th, #scoreTable td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+#scoreTable th {
+  background-color: #4CAF50;
+  color: white;
+}
+
+#scoreTable tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+#scoreTable tr:hover {
+  background-color: #ddd;
+}
+
+/* Animation pour l'affichage des résultats */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.informations p {
+  margin: 5px 0;
+  font-size: 1rem;
+  animation: fadeIn 1s ease-in-out;
+}
+

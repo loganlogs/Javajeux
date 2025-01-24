@@ -164,33 +164,23 @@ function sauvegarderScore(username, points) {
 function afficherScores() {
   const scoresRef = ref(db, "scores");
   onValue(scoresRef, (snapshot) => {
-    const scoresData = snapshot.val();
-    if (!scoresData) {
-      console.log("Aucun score trouvé.");
-      return;
-    }
-
-    const scoresArray = [];
-    for (const key in scoresData) {
-      scoresArray.push(scoresData[key]);
-    }
-
-    scoresArray.sort((a, b) => b.score - a.score);
-
-    const scoreTable = document.getElementById("scoreTable").querySelector("tbody");
-    scoreTable.innerHTML = '';
-
-    scoresArray.forEach((data, index) => {
-      const row = document.createElement('tr');
-      row.innerHTML = `
-        <td>${index + 1}</td>
-        <td>${data.username}</td>
-        <td>${data.score}</td>
-      `;
-      scoreTable.appendChild(row);
-    });
+    const scores = snapshot.val();
+    const tbody = document.getElementById("scoreTable").querySelector("tbody");
+    tbody.innerHTML = ""; // Réinitialise le tableau avant d'ajouter les scores
+    Object.values(scores || {})
+      .sort((a, b) => b.score - a.score) // Trie les scores par ordre décroissant
+      .forEach((data, index) => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${index + 1}</td>
+          <td>${data.username}</td>
+          <td>${data.score}</td>
+        `;
+        tbody.appendChild(row);
+      });
   });
 }
+
 
 // Reset de la partie
 document.getElementById("reset").addEventListener("click", startGame);

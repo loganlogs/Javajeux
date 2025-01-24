@@ -35,10 +35,19 @@ if (!userId) {
   // Si pas de cookie, on demande un pseudo
   loginButton.addEventListener("click", async () => {
     username = usernameInput.value.trim();
+
+    // Validation : autoriser uniquement les lettres
+    const usernameRegex = /^[a-zA-Z]+$/;
+    if (!usernameRegex.test(username)) {
+      alert("Le pseudo ne peut contenir que des lettres (A-Z, a-z). Pas de chiffres, espaces ou caractères spéciaux.");
+      return;
+    }
+
     if (username === "") {
       alert("Veuillez entrer un pseudo !");
       return;
     }
+
     // Connexion avec un nouveau pseudo
     signInAnonymously(auth).then(() => {
       userId = auth.currentUser.uid;

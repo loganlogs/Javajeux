@@ -136,6 +136,41 @@ button:hover, input[type="submit"]:hover {
   background-color: #5a5a5a; /* Survol de ligne avec un fond un peu plus clair */
 }
 
+/* Section des profils */
+#userProfileSection {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #2a2a2a;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#userProfileSection h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+#userProfileSection ul {
+  list-style-type: none;
+  padding: 0;
+  text-align: center;
+}
+
+#userProfileSection ul li {
+  margin: 8px 0;
+}
+
+#userProfileSection ul li a {
+  text-decoration: none;
+  color: #0066cc;
+  font-weight: bold;
+}
+
+#userProfileSection ul li a:hover {
+  color: #004d99;
+  text-decoration: underline;
+}
+
 /* Animation pour l'affichage des résultats */
 @keyframes fadeIn {
   from {

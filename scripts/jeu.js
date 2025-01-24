@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
-import { getDatabase, ref, set, onValue, get } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-database.js";
+import { getDatabase, ref, set, onValue, get, push } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-database.js";
 import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js";
 
 // Config Firebase
@@ -24,31 +24,6 @@ let username = localStorage.getItem("username");
 let randomNumber;
 let compteur = 0;
 let score = 0;
-
-// Fonction pour calculer un score en fonction des tentatives
-function calculateScore(attempts) {
-  return Math.max(100 - (attempts * 25), 0); // Limite le score à 0 minimum
-}
-
-// Fonction pour soumettre le score à Firebase
-function submitScore(username, attempts) {
-  const score = calculateScore(attempts);
-
-  if (score > 100) {
-    console.error("Le score ne peut pas dépasser 100 !");
-    return;
-  }
-
-  if (username && score >= 0) {
-    firebase.database().ref('scores').push({
-      username: username,
-      score: score,
-      attempts: attempts
-    });
-  } else {
-    console.error("Données invalides !");
-  }
-}
 
 // Gestion de la connexion via cookie
 if (!userId) {
@@ -124,10 +99,10 @@ function verifier() {
   compteur++;
 
   if (proposition === randomNumber) {
-    score = calculateScore(compteur); // Utilisation de calculateScore
+    score = calculateScore(compteur);
     document.querySelector(".resultat").textContent = `Bravo ${username || "Invité"} ! Vous avez trouvé en ${compteur} tentatives. 🎉`;
     document.querySelector(".tentatives").textContent = `Score gagné : ${score} points.`;
-    submitScore(username, compteur); // Appel de submitScore
+    submitScore(username, compteur); // Soumission du score
     afficherScores(); // Met à jour le tableau des scores
     finDeJeu();
   } else if (proposition < randomNumber) {
@@ -151,6 +126,36 @@ function finDeJeu() {
   document.getElementById("envoyer").disabled = true;
   document.getElementById("proposition").disabled = true;
   document.getElementById("reset").style.display = "inline"; // Affiche le bouton Reset
+}
+
+// Calculer le score
+function calculateScore(attempts) {
+  return Math.max(100 - (attempts * 10), 0); // Limite le score à 0 minimum
+}
+
+// Soumettre un score
+function submitScore(username, attempts) {
+  const score = calculateScore(attempts);
+
+  if (score > 100) {
+    console.error("Le score ne peut pas dépasser 100 !");
+    return;
+  }
+
+  if (username && score >= 0) {
+    const scoresRef = ref(db, 'scores'); // Utilise `db` pour accéder à la base de données
+    push(scoresRef, {
+      username: username,
+      score: score,
+      attempts: attempts
+    }).then(() => {
+      console.log("Score soumis avec succès !");
+    }).catch((error) => {
+      console.error("Erreur lors de la soumission du score :", error);
+    });
+  } else {
+    console.error("Données invalides !");
+  }
 }
 
 // Afficher les scores dans le tableau

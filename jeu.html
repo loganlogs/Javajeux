@@ -10,32 +10,9 @@
     <h1>Jeu : Devinez un nombre</h1>
 
     <!-- Div de Connexion -->
-    <div id="login">
-      <label for="username">Nom d'utilisateur (facultatif) :</label>
-      <input type="text" id="username" placeholder="Entrez votre pseudo">
-      <input type="submit" id="loginButton" value="Jouer">
-    </div>
-
-    <!-- Div du Jeu -->
-    <div id="game" style="display: none;">
-      <p>Un nombre entre 1 et 100 a été choisi. Essayez de deviner !</p>
-      <div class="form">
-        <label for="proposition">Votre proposition :</label>
-        <input type="text" id="proposition" placeholder="Entrez un nombre">
-        <input type="submit" id="envoyer" value="Envoyer">
-        <button class="reset" id="reset" style="display:none;">Reset</button>
-      </div>
-      <div class="informations">
-        <p class="resultat"></p>
-        <p class="tropHautTropBas"></p>
-        <p class="tentatives"></p>
-      </div>
-    </div>
-
-    <!-- Tableau des scores -->
-<h2>Tableau des scores</h2>
+<!-- Partie du tableau des scores -->
 <div id="scoreTableContainer">
-  <table>
+  <table id="scoreTable">
     <thead>
       <tr>
         <th>Rang</th>
@@ -48,6 +25,24 @@
     </tbody>
   </table>
 </div>
+
+<!-- Formulaire de connexion et d'affichage du jeu -->
+<div id="login" style="display:none;">
+  <!-- Formulaire de pseudo -->
+  <input type="text" id="username" placeholder="Entrez votre pseudo" />
+  <button id="loginButton">Se connecter</button>
+</div>
+
+<div id="game" style="display:none;">
+  <!-- Affichage du jeu avec les entrées utilisateur -->
+  <input type="number" id="proposition" placeholder="Proposez un nombre" />
+  <button id="envoyer">Envoyer</button>
+  <div class="tropHautTropBas"></div>
+  <div class="resultat"></div>
+  <div class="tentatives"></div>
+  <button id="reset" style="display:none;">Réinitialiser</button>
+</div>
+
 
 
 

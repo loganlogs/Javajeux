@@ -16,7 +16,7 @@ body {
 }
 
 h1 {
-  font-size: 3rem;
+  font-size: 3.5rem; /* Plus grand titre */
   margin-bottom: 20px;
   color: #0f0;
   text-shadow: 0 0 10px #00ff00, 0 0 20px #0f0;
@@ -40,7 +40,7 @@ p, label {
   text-shadow: 0 0 5px #0f0, 0 0 10px #00ff00;
 }
 
-/* Formulaire */
+/* Formulaire et boutons */
 .form {
   margin-top: 20px;
   display: flex;
@@ -50,44 +50,42 @@ p, label {
 }
 
 input[type="text"], input[type="number"], input[type="submit"], .reset {
-  padding: 10px;
-  font-size: 1rem;
+  padding: 12px;
+  font-size: 1.1rem;
   border: 2px solid #0f0;
   background: #000;
   color: #0f0;
-  border-radius: 10px;
-  box-shadow: 0 0 5px #0f0;
+  border-radius: 12px;
+  box-shadow: 0 0 6px #0f0;
   outline: none;
   transition: 0.3s;
 }
 
 input[type="number"]:focus, input[type="text"]:focus {
-  box-shadow: 0 0 10px #00ff00;
+  box-shadow: 0 0 15px #00ff00;
+}
+
+input[type="submit"]:hover, .reset:hover {
+  background: #00ff00;
+  color: #000;
+  border: 2px solid #00ff00;
+  box-shadow: 0 0 20px #00ff00;
+  cursor: pointer;
 }
 
 input[type="submit"], .reset {
   font-weight: bold;
   text-transform: uppercase;
-  background: #0f0;
-  color: #000;
-  cursor: pointer;
 }
 
-input[type="submit"]:hover, .reset:hover {
-  background: #000;
-  color: #0f0;
-  border: 2px solid #00ff00;
-  box-shadow: 0 0 10px #00ff00;
-}
-
-/* Conteneur pour le tableau des scores */
+/* Table des scores */
 #scoreTableContainer {
   max-height: 400px; /* Hauteur max pour le tableau */
   overflow-y: auto; /* Scroll vertical si nécessaire */
   margin-top: 20px;
-  border: 1px solid #0f0;
-  border-radius: 10px;
-  padding: 5px;
+  border: 2px solid #0f0;
+  border-radius: 12px;
+  padding: 10px;
   background: rgba(0, 0, 0, 0.7);
   width: 80%;
   margin: 0 auto; /* Centrer horizontalement */
@@ -102,7 +100,7 @@ input[type="submit"]:hover, .reset:hover {
 
 #scoreTable th, #scoreTable td {
   text-align: center;
-  padding: 10px;
+  padding: 12px;
   border: 1px solid #0f0;
 }
 
@@ -116,7 +114,7 @@ tbody tr:nth-child(odd) {
 
 /* Texte "C'est plus grand / C'est plus petit" */
 .tropHautTropBas {
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   text-align: center;
   margin-top: 20px;
   color: #0f0;
@@ -136,4 +134,30 @@ tbody tr:nth-child(odd) {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+/* Personnalisation de la barre de défilement */
+#scoreTableContainer::-webkit-scrollbar {
+  width: 8px;
+}
+
+#scoreTableContainer::-webkit-scrollbar-thumb {
+  background-color: #00ff00;
+  border-radius: 10px;
+}
+
+#scoreTableContainer::-webkit-scrollbar-track {
+  background-color: #000;
+}
+
+/* Centrage du texte dans le tableau */
+td, th {
+  text-align: center;
+  padding: 15px 10px;
+}
+
+/* Ajouter des effets pour un hover amélioré */
+tbody tr:hover {
+  background-color: rgba(0, 255, 0, 0.2);
+  cursor: pointer;
 }

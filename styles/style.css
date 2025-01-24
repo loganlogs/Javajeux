@@ -16,7 +16,8 @@ body {
   height: 100vh;
   overflow: hidden;
   padding: 20px;
-  text-align: center; /* Centre le texte à l'intérieur du body */
+  text-align: center;
+  overflow-y: auto; /* Permet le défilement vertical si nécessaire */
 }
 
 h1 {
@@ -40,6 +41,7 @@ h1 {
 p, .resultat, .tropHautTropBas {
   font-size: 1.2rem;
   color: #8aff80; /* Texte en vert clair */
+  text-align: center;
   margin: 10px 0;
   text-shadow: 0 0 5px #00ff00, 0 0 10px #8aff80;
 }
@@ -56,6 +58,8 @@ p, .resultat, .tropHautTropBas {
 }
 
 input[type="text"], input[type="number"], button {
+  display: block;
+  margin: 10px auto; /* Centrer avec une marge automatique */
   padding: 10px;
   font-size: 1rem;
   border-radius: 10px;
@@ -63,27 +67,21 @@ input[type="text"], input[type="number"], button {
   background: #2a2a2a; /* Fond sombre mais doux */
   color: #8aff80; /* Texte en vert clair */
   box-shadow: 0 0 5px #00ff00;
-  margin: 10px;
   outline: none;
   transition: 0.3s ease;
   width: 100%; /* Pour que les éléments prennent toute la largeur disponible */
   max-width: 300px; /* Limite de largeur */
 }
 
-input[type="text"]:focus, input[type="number"]:focus {
+input[type="submit"]:focus, input[type="number"]:focus {
   box-shadow: 0 0 10px #00ff00;
 }
 
-button:hover {
+button:hover, input[type="submit"]:hover {
   background-color: #1a1a1a; /* Fond plus foncé au survol */
   color: #8aff80;
   border: 2px solid #00ff00;
   box-shadow: 0 0 10px #00ff00;
-}
-
-button {
-  display: inline-block;
-  text-align: center; /* Centre le texte du bouton */
 }
 
 /* Style de la table des scores */
@@ -94,11 +92,9 @@ button {
   border: 2px solid #4CAF50; /* Bordure verte */
   border-radius: 10px;
   margin-top: 20px;
-  max-width: 500px; /* Limite de largeur pour la table */
-  margin-left: auto;
-  margin-right: auto;
 }
 
+/* Style de la scrollbar */
 #scoreTableContainer::-webkit-scrollbar {
   width: 12px;
 }

@@ -41,7 +41,6 @@ p {
 .form {
   margin-top: 20px;
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
   gap: 10px;
@@ -109,18 +108,20 @@ input[type="submit"]:hover, .reset:hover {
 
   p {
     font-size: 1rem;
-    margin: 8px 0;
+  }
+
+  .form {
+    gap: 8px;
   }
 
   input[type="text"] {
-    width: 80%;
     font-size: 1rem;
     padding: 8px;
   }
 
   input[type="submit"], .reset {
     font-size: 0.9rem;
-    padding: 8px 15px;
+    padding: 8px 16px;
   }
 }
 
@@ -136,17 +137,21 @@ input[type="submit"]:hover, .reset:hover {
 
   .form {
     flex-direction: column;
-    gap: 15px;
+    gap: 10px;
   }
 
   input[type="text"] {
     width: 90%;
-    font-size: 1rem;
+    font-size: 0.9rem;
   }
 
   input[type="submit"], .reset {
     font-size: 0.8rem;
     padding: 10px;
-    width: 70%;
+    width: 80%;
+  }
+
+  .informations p {
+    font-size: 0.9rem;
   }
 }

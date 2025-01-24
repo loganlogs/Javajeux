@@ -7,8 +7,8 @@
 
 body {
   font-family: 'Share Tech Mono', monospace;
-  background: radial-gradient(circle, #001f3f, #000);
-  color: #0f0;
+  background: radial-gradient(circle, #1a1a1a, #0a0a0a); /* Fond sombre doux */
+  color: #8aff80; /* Vert clair, pour un contraste plus doux */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -21,27 +21,27 @@ body {
 h1 {
   font-size: 3rem;
   margin-bottom: 20px;
-  color: #0f0;
-  text-shadow: 0 0 10px #00ff00, 0 0 20px #0f0;
+  color: #8aff80; /* Couleur vert clair */
+  text-shadow: 0 0 10px #00ff00, 0 0 20px #8aff80; /* Lumière verte douce */
   animation: glow 2s infinite alternate;
 }
 
 @keyframes glow {
   from {
-    text-shadow: 0 0 10px #0f0, 0 0 20px #00ff00;
+    text-shadow: 0 0 10px #00ff00, 0 0 20px #8aff80;
   }
   to {
-    text-shadow: 0 0 20px #00ff00, 0 0 40px #0f0;
+    text-shadow: 0 0 20px #8aff80, 0 0 40px #00ff00;
   }
 }
 
 /* Style des paragraphes */
 p, .resultat, .tropHautTropBas {
   font-size: 1.2rem;
-  color: #0f0;
+  color: #8aff80; /* Texte en vert clair */
   text-align: center;
   margin: 10px 0;
-  text-shadow: 0 0 5px #0f0, 0 0 10px #00ff00;
+  text-shadow: 0 0 5px #00ff00, 0 0 10px #8aff80;
 }
 
 /* Connexion et formulaire du jeu */
@@ -56,10 +56,10 @@ input[type="text"], input[type="number"], button {
   padding: 10px;
   font-size: 1rem;
   border-radius: 10px;
-  border: 2px solid #0f0;
-  background: #000;
-  color: #0f0;
-  box-shadow: 0 0 5px #0f0;
+  border: 2px solid #8aff80; /* Bordure vert clair */
+  background: #2a2a2a; /* Fond sombre mais doux */
+  color: #8aff80; /* Texte en vert clair */
+  box-shadow: 0 0 5px #00ff00;
   margin: 10px;
   outline: none;
   transition: 0.3s ease;
@@ -70,8 +70,8 @@ input[type="text"]:focus, input[type="number"]:focus {
 }
 
 button:hover {
-  background-color: #000;
-  color: #0f0;
+  background-color: #1a1a1a; /* Fond plus foncé au survol */
+  color: #8aff80;
   border: 2px solid #00ff00;
   box-shadow: 0 0 10px #00ff00;
 }
@@ -85,11 +85,15 @@ button:hover {
 
 button#reset {
   display: none;
-  background-color: #0f0;
+  background-color: #8aff80; /* Vert clair pour le bouton */
   color: #000;
   font-weight: bold;
   text-transform: uppercase;
   cursor: pointer;
+  border-radius: 5px;
+  border: none;
+  padding: 10px 20px;
+  box-shadow: 0 0 10px #00ff00;
 }
 
 /* Style de la table des scores */
@@ -97,7 +101,7 @@ button#reset {
   width: 100%;
   max-height: 400px;
   overflow-y: auto;
-  border: 2px solid #4CAF50;
+  border: 2px solid #4CAF50; /* Bordure verte */
   border-radius: 10px;
   margin-top: 20px;
 }
@@ -113,7 +117,7 @@ button#reset {
 }
 
 #scoreTableContainer::-webkit-scrollbar-track {
-  background-color: #f1f1f1;
+  background-color: #222222; /* Fond plus sombre pour la track */
   border-radius: 10px;
 }
 
@@ -122,12 +126,13 @@ button#reset {
   width: 100%;
   border-collapse: collapse;
   margin-top: 10px;
+  background: #2a2a2a; /* Fond sombre pour la table */
 }
 
 #scoreTable th, #scoreTable td {
   padding: 12px;
   text-align: left;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #333333; /* Légère séparation entre les lignes */
 }
 
 #scoreTable th {
@@ -136,11 +141,11 @@ button#reset {
 }
 
 #scoreTable tr:nth-child(even) {
-  background-color: #f2f2f2;
+  background-color: #3a3a3a; /* Fond légèrement plus clair pour les lignes paires */
 }
 
 #scoreTable tr:hover {
-  background-color: #ddd;
+  background-color: #5a5a5a; /* Survol de ligne avec un fond un peu plus clair */
 }
 
 /* Animation pour l'affichage des résultats */
@@ -160,4 +165,3 @@ button#reset {
   font-size: 1rem;
   animation: fadeIn 1s ease-in-out;
 }
-

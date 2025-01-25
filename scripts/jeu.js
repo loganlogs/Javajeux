@@ -59,24 +59,23 @@ if (!userId) {
     // Connexion avec un nouveau pseudo
     signInAnonymously(auth)
       .then(() => {
-        auth.onAuthStateChanged(user => {
-          if (user) {
-            console.log("Utilisateur authentifié :", user.uid);
+        const user = auth.currentUser;
+        if (user) {
+          console.log("Utilisateur authentifié :", user.uid);
 
-            // L'utilisateur est authentifié, on sauvegarde son ID
-            userId = user.uid;
-            localStorage.setItem("userId", userId);
-            localStorage.setItem("username", username);
+          // L'utilisateur est authentifié, on sauvegarde son ID
+          userId = user.uid;
+          localStorage.setItem("userId", userId);
+          localStorage.setItem("username", username);
 
-            loginDiv.style.display = "none";
-            gameDiv.style.display = "block";
+          loginDiv.style.display = "none";
+          gameDiv.style.display = "block";
 
-            startGame();
-            afficherScores(); // Charger les scores dès la connexion
-          } else {
-            console.log("Utilisateur non authentifié");
-          }
-        });
+          startGame();
+          afficherScores(); // Charger les scores dès la connexion
+        } else {
+          console.error("Erreur : l'utilisateur n'est pas authentifié.");
+        }
       })
       .catch((error) => console.error("Erreur d'authentification :", error));
   });
@@ -153,12 +152,12 @@ function sauvegarderScore(username, points) {
   get(userRef).then((snapshot) => {
     if (snapshot.exists()) {
       const existingData = snapshot.val();
-      const newScore = existingData.score + points;
-      update(userRef, { score: newScore });
+      const newScore = (existingData.score || 0) + points;
+      update(userRef, { username, score: newScore });
     } else {
       set(userRef, { username: username, score: points });
     }
-  });
+  }).catch((error) => console.error("Erreur lors de la sauvegarde des scores :", error));
 }
 
 // Afficher les scores dans le tableau
@@ -181,7 +180,7 @@ function afficherScores() {
       `;
       scoreTable.appendChild(row);
     });
-  });
+  }, (error) => console.error("Erreur lors de la récupération des scores :", error));
 }
 
 // Reset de la partie
@@ -201,5 +200,8 @@ function verifierPseudo(pseudo) {
   return get(scoresRef).then((snapshot) => {
     const scoresData = snapshot.val();
     return !scoresData || !Object.values(scoresData).some(data => data.username === pseudo);
+  }).catch((error) => {
+    console.error("Erreur lors de la vérification du pseudo :", error);
+    return false;
   });
 }

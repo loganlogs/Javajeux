@@ -62,9 +62,8 @@
     <!-- Section "Suivez-moi" rétractable -->
     <div id="userProfileSection" class="profile-section">
       <button id="toggleProfiles" class="toggle-btn" aria-expanded="false" aria-controls="userProfileList">
-        ▼
+        ▼ Suivez-moi sur
       </button>
-      <h3>Suivez-moi sur :</h3>
       <ul id="userProfileList" class="profile-links">
         <li><a href="https://guns.lol/sw9lly" target="_blank" aria-label="Mon guns.lol">Mon guns.lol</a></li>
         <li>
@@ -105,5 +104,18 @@
 
     <!-- Script JS -->
     <script type="module" src="scripts/jeu.js"></script>
+
+    <!-- Script pour le toggle -->
+    <script>
+      const toggleButton = document.getElementById('toggleProfiles');
+      const profileSection = document.getElementById('userProfileSection');
+
+      toggleButton.addEventListener('click', () => {
+        const expanded = toggleButton.getAttribute('aria-expanded') === 'true';
+        profileSection.style.display = expanded ? 'none' : 'block';
+        toggleButton.setAttribute('aria-expanded', !expanded);
+        toggleButton.textContent = expanded ? '▼ Suivez-moi sur' : '▲ Masquer';
+      });
+    </script>
   </body>
 </html>

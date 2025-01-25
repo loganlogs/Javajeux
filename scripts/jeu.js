@@ -43,7 +43,6 @@ async function setupLogin() {
   const gameDiv = document.getElementById("game");
   const usernameInput = document.getElementById("username");
   const loginButton = document.getElementById("loginButton");
-  const errorMessage = document.getElementById("errorMessage");
 
   // Ajouter l'événement "Entrée" pour la validation du pseudo
   usernameInput.addEventListener("keydown", (event) => {
@@ -56,10 +55,10 @@ async function setupLogin() {
   loginButton.addEventListener("click", async () => {
     username = usernameInput.value.trim();
 
-    // Validation du pseudo (uniquement lettres)
+    // Validation du pseudo (uniquement lettres, pas de chiffres ni de caractères spéciaux)
     if (!/^[a-zA-Z]+$/.test(username)) {
       alert("Le pseudo doit contenir uniquement des lettres (A-Z, a-z).");
-      usernameInput.value = '';
+      usernameInput.value = ''; // Réinitialiser le champ
       return;
     }
 
@@ -75,7 +74,7 @@ async function setupLogin() {
       const usernamesTaken = Object.values(users).map(user => user.username);
 
       if (usernamesTaken.includes(username)) {
-        errorMessage.style.display = 'block'; // Afficher le message d'erreur
+        alert("Le pseudo est déjà pris, veuillez en choisir un autre.");
         return;
       }
 

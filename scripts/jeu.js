@@ -216,14 +216,39 @@ async function verifierPseudo(pseudo) {
   }
 }
 
-// Sélection des thèmes
-const themes = document.querySelectorAll('.theme');
+// Ajouter un écouteur d'événements pour chaque bouton de thème
+document.getElementById('theme1').addEventListener('click', () => changeTheme('theme-cyberpunk'));
+document.getElementById('theme2').addEventListener('click', () => changeTheme('theme-lux'));
+document.getElementById('theme3').addEventListener('click', () => changeTheme('theme-horror'));
+document.getElementById('theme4').addEventListener('click', () => changeTheme('theme-sakura'));
 
-themes.forEach(theme => {
-  theme.addEventListener('click', () => {
-    document.body.className = ''; // Réinitialise toutes les classes
+// Fonction pour changer de thème
+function changeTheme(themeClass) {
+  // Supprimer les classes de thème existantes
+  document.body.classList.remove('theme-cyberpunk', 'theme-lux', 'theme-horror', 'theme-sakura');
 
-    // Ajoute la classe du thème sélectionné
-    document.body.classList.add(theme.id);
-  });
+  // Ajouter la nouvelle classe de thème
+  document.body.classList.add(themeClass);
+}
+
+
+// Gérer le changement de thème
+document.getElementById("theme1").addEventListener("click", function() {
+  document.body.classList.remove("theme-lux", "theme-horror", "theme-sakura");
+  document.body.classList.add("theme-cyberpunk");
+});
+
+document.getElementById("theme2").addEventListener("click", function() {
+  document.body.classList.remove("theme-cyberpunk", "theme-horror", "theme-sakura");
+  document.body.classList.add("theme-lux");
+});
+
+document.getElementById("theme3").addEventListener("click", function() {
+  document.body.classList.remove("theme-cyberpunk", "theme-lux", "theme-sakura");
+  document.body.classList.add("theme-horror");
+});
+
+document.getElementById("theme4").addEventListener("click", function() {
+  document.body.classList.remove("theme-cyberpunk", "theme-lux", "theme-horror");
+  document.body.classList.add("theme-sakura");
 });

@@ -73,7 +73,7 @@ input[type="text"], input[type="number"], button {
   max-width: 300px; /* Limite de largeur */
 }
 
-input[type="submit"]:focus, input[type="number"]:focus {
+input[type="text"]:focus, input[type="number"]:focus {
   box-shadow: 0 0 10px #00ff00;
 }
 
@@ -82,6 +82,25 @@ button:hover, input[type="submit"]:hover {
   color: #8aff80;
   border: 2px solid #00ff00;
   box-shadow: 0 0 10px #00ff00;
+}
+
+/* Amélioration du style pour le bouton "Jouer" */
+button#loginButton {
+  background: linear-gradient(45deg, #00ff00, #008000);
+  color: white;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 12px 20px;
+  font-size: 1.2rem;
+  border: none;
+  box-shadow: 0 0 15px #00ff00, 0 0 30px #8aff80;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+button#loginButton:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px #00ff00, 0 0 40px #8aff80;
 }
 
 /* Style de la table des scores */
@@ -143,11 +162,23 @@ button:hover, input[type="submit"]:hover {
   background-color: #2a2a2a;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  max-height: 0; /* Initialement masqué */
+  overflow: hidden;
+  transition: max-height 0.5s ease-in-out, padding 0.5s ease-in-out;
 }
 
-#userProfileSection h3 {
-  font-size: 18px;
-  margin-bottom: 10px;
+#userProfileSection.open {
+  max-height: 400px; /* Hauteur maximale lorsqu'ouverte */
+  padding: 10px;
+}
+
+#userProfileSection h3, #userProfileSection ul {
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+#userProfileSection.open h3, #userProfileSection.open ul {
+  opacity: 1;
 }
 
 #userProfileSection ul {
@@ -162,12 +193,12 @@ button:hover, input[type="submit"]:hover {
 
 #userProfileSection ul li a {
   text-decoration: none;
-  color: #0066cc;
+  color: #8aff80;
   font-weight: bold;
 }
 
 #userProfileSection ul li a:hover {
-  color: #004d99;
+  color: #00ff00;
   text-decoration: underline;
 }
 
@@ -187,4 +218,22 @@ button:hover, input[type="submit"]:hover {
   margin: 5px 0;
   font-size: 1rem;
   animation: fadeIn 1s ease-in-out;
+}
+
+/* Bouton pour la section rétractable */
+.toggle-btn {
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  color: #8aff80;
+  cursor: pointer;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.toggle-btn.rotate {
+  transform: rotate(180deg);
+}
+
+.toggle-btn:hover {
+  color: #00ff00;
 }

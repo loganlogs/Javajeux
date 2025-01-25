@@ -1,70 +1,10 @@
-/* Style du sélecteur de thème en haut à droite */
-.theme-selector {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  display: flex;
-  gap: 10px;
+/* Reset et style global */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.theme {
-  width: 40px;
-  height: 40px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: transform 0.3s ease;
-}
-
-.theme:hover {
-  transform: scale(1.1); /* Effet de zoom au survol */
-}
-
-/* Thème Cyberpunk */
-.theme-cyberpunk {
-  background-color: #111;
-  color: neon;
-  font-family: 'Courier New', Courier, monospace;
-}
-
-/* Thème Lux */
-.theme-lux {
-  background-color: #fff;
-  color: #000;
-  font-family: Arial, sans-serif;
-}
-
-/* Thème Horror */
-.theme-horror {
-  background-color: #2a2a2a;
-  color: red;
-  font-family: 'Creepster', cursive;
-}
-
-/* Thème Sakura */
-.theme-sakura {
-  background-color: pink;
-  color: white;
-  font-family: 'Sakura', sans-serif;
-}
-
-/* Ajout d'un peu de style pour les boutons de changement de thème */
-#themeSelector button {
-  margin: 5px;
-  padding: 10px 20px;
-  font-size: 16px;
-  cursor: pointer;
-  border: none;
-  background-color: #333;
-  color: #fff;
-  border-radius: 5px;
-}
-
-#themeSelector button:hover {
-  background-color: #555;
-}
-
-
-/* Styles généraux */
 body {
   font-family: 'Share Tech Mono', monospace;
   background: radial-gradient(circle, #446e22, #0a0a0a); /* Fond sombre doux */
@@ -95,20 +35,6 @@ h1 {
   to {
     text-shadow: 0 0 20px #8aff80, 0 0 40px #00ff00;
   }
-}
-
-details summary {
-  font-size: 1.5rem; /* Augmente la taille du texte */
-  font-weight: bold; /* Met le texte en gras pour plus de visibilité */
-  color: #8aff80; /* Garder la couleur verte de la police */
-  cursor: pointer; /* Changer le curseur en pointeur pour indiquer que c'est cliquable */
-  text-shadow: 0 0 5px #00ff00, 0 0 10px #8aff80; /* Ajouter un effet de lumière verte douce */
-  transition: all 0.3s ease; /* Transition douce pour le texte */
-}
-
-details summary:hover {
-  color: #00ff00; /* Change la couleur du texte en vert plus lumineux au survol */
-  text-shadow: 0 0 15px #00ff00, 0 0 20px #8aff80; /* Augmente l'effet de glow au survol */
 }
 
 /* Style des paragraphes */
@@ -370,15 +296,11 @@ h2, h3 {
   transition: color 0.3s ease, text-decoration 0.3s ease;
 }
 
-/* Styles spécifiques pour les réseaux sociaux avec effets de bouton */
+/* Styles spécifiques pour les réseaux sociaux */
 .social-links {
   list-style: none;
   padding: 0;
   margin: 10px 0;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  align-items: center;
 }
 
 .social-links li {
@@ -387,31 +309,23 @@ h2, h3 {
 
 .social-links li a {
   text-decoration: none;
-  color: #8aff80; /* Texte en vert clair */
+  color: #8aff80;
   font-size: 1.2rem;
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 10px 20px; /* Un peu d'espace autour du texte */
-  background-color: #444444; /* Fond gris */
-  border-radius: 30px;
-  box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
-  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .social-links li a:hover {
-  background-color: #5a5a5a;
-  transform: scale(1.05);
+  color: #00ff00; /* Couleur verte au survol */
+  text-decoration: underline;
 }
 
-/* Ajout de styles pour un footer */
-footer {
-  background-color: #222222;
-  color: #8aff80;
-  padding: 20px;
-  text-align: center;
-  width: 100%;
-  position: fixed;
-  bottom: 0;
-  left: 0;
+.social-links li a i {
+  font-size: 1.5rem;
+  transition: transform 0.3s ease;
+}
+
+.social-links li a:hover i {
+  transform: scale(1.2); /* Agrandir l'icône au survol */
 }

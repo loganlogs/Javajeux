@@ -92,10 +92,19 @@ function setupGame() {
   document.getElementById("game").style.display = "block";
   username = localStorage.getItem("username");
 
-  // Récupérer la difficulté choisie
-  const difficulty = document.getElementById("difficulty").value;
-  maxTentatives = difficulty === "facile" ? 15 : difficulty === "moyen" ? 10 : 5; // Difficulté en fonction du choix
-  console.log("Difficulté sélectionnée : " + difficulty);
+  // Vérification si l'élément "difficulty" existe avant d'y accéder
+  const difficultyElement = document.getElementById("difficulty");
+
+  if (difficultyElement) {
+    const difficulty = difficultyElement.value;
+    maxTentatives = difficulty === "facile" ? 15 : difficulty === "moyen" ? 10 : 5; // Difficulté en fonction du choix
+    console.log("Difficulté sélectionnée : " + difficulty);
+  } else {
+    // Si l'élément "difficulty" n'existe pas, tu peux gérer cette situation
+    // Par exemple, définir une valeur par défaut
+    maxTentatives = 10;
+    console.log("Aucune difficulté définie. Utilisation de la difficulté par défaut.");
+  }
 }
 
 /** 
@@ -184,10 +193,11 @@ function sauvegarderScore(username, points) {
   const userRef = ref(db, `scores/${userId}`);
 
   get(userRef).then((snapshot) => {
-    // Pas d'addition de scores, on met à jour directement le score
+    const newScore = snapshot.exists() ? snapshot.val().score + points : points;
+
     set(userRef, {
       username: username,
-      score: points
+      score: newScore
     }).then(() => console.log("Score mis à jour !"))
       .catch((error) => console.error("Erreur enregistrement :", error));
   }).catch((error) => console.error("Erreur récupération score :", error));

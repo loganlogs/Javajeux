@@ -58,23 +58,23 @@ if (!userId) {
 
       // Connexion avec un nouveau pseudo
       signInAnonymously(auth).then(() => {
-        userId = auth.currentUser.uid;
-        localStorage.setItem("userId", userId);
-        localStorage.setItem("username", username);
-        console.log("Utilisateur connecté anonymement !");
-        
-        // Vérifie si l'utilisateur est authentifié avant de continuer
-        if (auth.currentUser) {
-          loginDiv.style.display = "none";
-          gameDiv.style.display = "block";
-          startGame();
-          afficherScores(); // Charger les scores dès la connexion
-        } else {
-          console.error("Erreur : Utilisateur non authentifié !");
-        }
-      }).catch((error) => {
-        console.error("Erreur d'authentification :", error);
-      });
+        auth.onAuthStateChanged(user => {
+          if (user) {
+            console.log("Utilisateur authentifié :", user.uid);
+            // L'utilisateur est authentifié, vous pouvez maintenant interagir avec Firebase
+            userId = user.uid;  // Stocke l'ID utilisateur authentifié
+            localStorage.setItem("userId", userId);
+            localStorage.setItem("username", username);
+            
+            loginDiv.style.display = "none";
+            gameDiv.style.display = "block";
+            startGame();
+            afficherScores(); // Charger les scores dès la connexion
+          } else {
+            console.log("Utilisateur non authentifié");
+          }
+        });
+      }).catch((error) => console.error("Erreur d'authentification :", error));
     });
   });
 } else {

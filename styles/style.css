@@ -7,7 +7,7 @@
 
 body {
   font-family: 'Share Tech Mono', monospace;
-  background: radial-gradient(circle, #579722, #0a0a0a); /* Fond sombre doux */
+  background: radial-gradient(circle, #446e22, #0a0a0a); /* Fond sombre doux */
   color: #8aff80; /* Vert clair, pour un contraste plus doux */
   display: flex;
   flex-direction: column;

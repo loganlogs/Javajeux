@@ -184,11 +184,10 @@ function sauvegarderScore(username, points) {
   const userRef = ref(db, `scores/${userId}`);
 
   get(userRef).then((snapshot) => {
-    const newScore = snapshot.exists() ? snapshot.val().score + points : points;
-
+    // Pas d'addition de scores, on met à jour directement le score
     set(userRef, {
       username: username,
-      score: newScore
+      score: points
     }).then(() => console.log("Score mis à jour !"))
       .catch((error) => console.error("Erreur enregistrement :", error));
   }).catch((error) => console.error("Erreur récupération score :", error));

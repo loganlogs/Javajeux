@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
-import { getDatabase, ref, set, onValue, get } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-database.js";
+import { getDatabase, ref, set, onValue, get, child } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-database.js";
 import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js";
 
 // Config Firebase
@@ -49,17 +49,43 @@ if (!userId) {
       return;
     }
 
-    // Connexion avec un nouveau pseudo
-    signInAnonymously(auth).then(() => {
-      userId = auth.currentUser.uid;
-      localStorage.setItem("userId", userId);
-      localStorage.setItem("username", username);
-      console.log("Utilisateur connecté anonymement !");
-      loginDiv.style.display = "none";
-      gameDiv.style.display = "block";
-      startGame();
-      afficherScores(); // Charger les scores dès la connexion
-    }).catch((error) => console.error("Erreur d'authentification :", error));
+    // Vérifier si le pseudo existe déjà dans la base de données
+    const usernameRef = ref(db, `scores`);
+    get(usernameRef).then((snapshot) => {
+      let pseudoExiste = false;
+
+      if (snapshot.exists()) {
+        // Vérifier chaque utilisateur
+        const scoresData = snapshot.val();
+        for (const key in scoresData) {
+          if (scoresData[key].username === username) {
+            pseudoExiste = true;
+            break;
+          }
+        }
+      }
+
+      // Si le pseudo existe déjà, on alerte l'utilisateur
+      if (pseudoExiste) {
+        alert("Ce pseudo est déjà pris. Veuillez en choisir un autre.");
+        usernameInput.value = ''; // On efface l'entrée
+        return;
+      } else {
+        // Si le pseudo est disponible, on continue avec la connexion
+        signInAnonymously(auth).then(() => {
+          userId = auth.currentUser.uid;
+          localStorage.setItem("userId", userId);
+          localStorage.setItem("username", username);
+          console.log("Utilisateur connecté anonymement !");
+          loginDiv.style.display = "none";
+          gameDiv.style.display = "block";
+          startGame();
+          afficherScores(); // Charger les scores dès la connexion
+        }).catch((error) => console.error("Erreur d'authentification :", error));
+      }
+    }).catch((error) => {
+      console.error("Erreur lors de la récupération des pseudos : ", error);
+    });
   });
 } else {
   // Si déjà connecté avec cookie, on charge le jeu directement

@@ -50,32 +50,35 @@ if (!userId) {
     }
 
     // Vérification de l'unicité du pseudo
-    verifierPseudo(username).then((isUnique) => {
-      if (!isUnique) {
-        alert("Ce pseudo est déjà pris, choisissez-en un autre.");
-        return;
-      }
+    const isUnique = await verifierPseudo(username);
+    if (!isUnique) {
+      alert("Ce pseudo est déjà pris, choisissez-en un autre.");
+      return;
+    }
 
-      // Connexion avec un nouveau pseudo
-      signInAnonymously(auth).then(() => {
+    // Connexion avec un nouveau pseudo
+    signInAnonymously(auth)
+      .then(() => {
         auth.onAuthStateChanged(user => {
           if (user) {
             console.log("Utilisateur authentifié :", user.uid);
-            // L'utilisateur est authentifié, vous pouvez maintenant interagir avec Firebase
-            userId = user.uid;  // Stocke l'ID utilisateur authentifié
+
+            // L'utilisateur est authentifié, on sauvegarde son ID
+            userId = user.uid;
             localStorage.setItem("userId", userId);
             localStorage.setItem("username", username);
-            
+
             loginDiv.style.display = "none";
             gameDiv.style.display = "block";
+
             startGame();
             afficherScores(); // Charger les scores dès la connexion
           } else {
             console.log("Utilisateur non authentifié");
           }
         });
-      }).catch((error) => console.error("Erreur d'authentification :", error));
-    });
+      })
+      .catch((error) => console.error("Erreur d'authentification :", error));
   });
 } else {
   // Si déjà connecté avec cookie, on charge le jeu directement
@@ -100,7 +103,7 @@ function startGame() {
   document.querySelector(".tentatives").textContent = '';
   document.getElementById("proposition").disabled = false;
   document.getElementById("envoyer").disabled = false;
-  document.getElementById("reset").style.display = "none"; // Reset masqué au début
+  document.getElementById("reset").style.display = "none";
 
   document.getElementById("proposition").focus();
 }
@@ -147,32 +150,14 @@ function finDeJeu() {
 // Sauvegarder ou ajouter des points pour un utilisateur
 function sauvegarderScore(username, points) {
   const userRef = ref(db, `scores/${userId}`);
-
-  // Récupérer les points actuels de l'utilisateur avant de les ajouter
   get(userRef).then((snapshot) => {
     if (snapshot.exists()) {
       const existingData = snapshot.val();
-      const newScore = existingData.score + points; // Ajouter les nouveaux points
-      update(userRef, {
-        score: newScore // Mettre à jour avec le score cumulé
-      }).then(() => {
-        console.log("Score mis à jour avec succès !");
-      }).catch((error) => {
-        console.error("Erreur lors de l'enregistrement du score :", error);
-      });
+      const newScore = existingData.score + points;
+      update(userRef, { score: newScore });
     } else {
-      // Si l'utilisateur n'a pas encore de score enregistré, on l'ajoute directement
-      set(userRef, {
-        username: username,
-        score: points // Enregistrer les premiers points
-      }).then(() => {
-        console.log("Score ajouté pour la première fois !");
-      }).catch((error) => {
-        console.error("Erreur lors de l'enregistrement du score :", error);
-      });
+      set(userRef, { username: username, score: points });
     }
-  }).catch((error) => {
-    console.error("Erreur lors de la récupération du score :", error);
   });
 }
 
@@ -181,18 +166,9 @@ function afficherScores() {
   const scoresRef = ref(db, "scores");
   onValue(scoresRef, (snapshot) => {
     const scoresData = snapshot.val();
-    if (!scoresData) {
-      console.log("Aucun score trouvé.");
-      return;
-    }
+    if (!scoresData) return;
 
-    const scoresArray = [];
-    for (const key in scoresData) {
-      scoresArray.push(scoresData[key]);
-    }
-
-    scoresArray.sort((a, b) => b.score - a.score);
-
+    const scoresArray = Object.values(scoresData).sort((a, b) => b.score - a.score);
     const scoreTable = document.getElementById("scoreTable").querySelector("tbody");
     scoreTable.innerHTML = '';
 
@@ -224,13 +200,6 @@ function verifierPseudo(pseudo) {
   const scoresRef = ref(db, "scores");
   return get(scoresRef).then((snapshot) => {
     const scoresData = snapshot.val();
-    if (scoresData) {
-      for (const userId in scoresData) {
-        if (scoresData[userId].username === pseudo) {
-          return false; // Le pseudo existe déjà
-        }
-      }
-    }
-    return true; // Le pseudo est unique
+    return !scoresData || !Object.values(scoresData).some(data => data.username === pseudo);
   });
 }

@@ -145,6 +145,9 @@ function startGame() {
 
   document.getElementById("proposition").focus();
 
+  // Réinitialiser le message d'erreur
+  document.querySelector(".tropHautTropBas").textContent = '';
+
   // Écouter la touche "Entrée" pour la proposition
   document.getElementById("proposition").addEventListener("keydown", (event) => {
     if (event.key === "Enter") {
@@ -160,6 +163,7 @@ function startGame() {
 function verifier() {
   const proposition = Number(document.getElementById("proposition").value);
 
+  // Vérification si la proposition est un nombre entre 1 et 100
   if (isNaN(proposition) || proposition < 1 || proposition > 100) {
     document.querySelector(".tropHautTropBas").textContent = "Veuillez entrer un nombre valide entre 1 et 100.";
     return;

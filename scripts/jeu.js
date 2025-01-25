@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
-import { getDatabase, ref, set, onValue, get, child } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-database.js";
+import { getDatabase, ref, set, onValue, get, update } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-database.js";
 import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js";
 
 // Config Firebase
@@ -49,42 +49,24 @@ if (!userId) {
       return;
     }
 
-    // Vérifier si le pseudo existe déjà dans la base de données
-    const usernameRef = ref(db, `scores`);
-    get(usernameRef).then((snapshot) => {
-      let pseudoExiste = false;
-
-      if (snapshot.exists()) {
-        // Vérifier chaque utilisateur
-        const scoresData = snapshot.val();
-        for (const key in scoresData) {
-          if (scoresData[key].username === username) {
-            pseudoExiste = true;
-            break;
-          }
-        }
-      }
-
-      // Si le pseudo existe déjà, on alerte l'utilisateur
-      if (pseudoExiste) {
-        alert("Ce pseudo est déjà pris. Veuillez en choisir un autre.");
-        usernameInput.value = ''; // On efface l'entrée
+    // Vérification de l'unicité du pseudo
+    verifierPseudo(username).then((isUnique) => {
+      if (!isUnique) {
+        alert("Ce pseudo est déjà pris, choisissez-en un autre.");
         return;
-      } else {
-        // Si le pseudo est disponible, on continue avec la connexion
-        signInAnonymously(auth).then(() => {
-          userId = auth.currentUser.uid;
-          localStorage.setItem("userId", userId);
-          localStorage.setItem("username", username);
-          console.log("Utilisateur connecté anonymement !");
-          loginDiv.style.display = "none";
-          gameDiv.style.display = "block";
-          startGame();
-          afficherScores(); // Charger les scores dès la connexion
-        }).catch((error) => console.error("Erreur d'authentification :", error));
       }
-    }).catch((error) => {
-      console.error("Erreur lors de la récupération des pseudos : ", error);
+
+      // Connexion avec un nouveau pseudo
+      signInAnonymously(auth).then(() => {
+        userId = auth.currentUser.uid;
+        localStorage.setItem("userId", userId);
+        localStorage.setItem("username", username);
+        console.log("Utilisateur connecté anonymement !");
+        loginDiv.style.display = "none";
+        gameDiv.style.display = "block";
+        startGame();
+        afficherScores(); // Charger les scores dès la connexion
+      }).catch((error) => console.error("Erreur d'authentification :", error));
     });
   });
 } else {
@@ -163,8 +145,7 @@ function sauvegarderScore(username, points) {
     if (snapshot.exists()) {
       const existingData = snapshot.val();
       const newScore = existingData.score + points; // Ajouter les nouveaux points
-      set(userRef, {
-        username: username,
+      update(userRef, {
         score: newScore // Mettre à jour avec le score cumulé
       }).then(() => {
         console.log("Score mis à jour avec succès !");
@@ -229,3 +210,19 @@ document.getElementById("proposition").addEventListener("keypress", (e) => {
 
 // Appuyer sur "Envoyer"
 document.getElementById("envoyer").addEventListener("click", verifier);
+
+// Vérifier si le pseudo est unique avant de l'enregistrer dans la base de données
+function verifierPseudo(pseudo) {
+  const scoresRef = ref(db, "scores");
+  return get(scoresRef).then((snapshot) => {
+    const scoresData = snapshot.val();
+    if (scoresData) {
+      for (const userId in scoresData) {
+        if (scoresData[userId].username === pseudo) {
+          return false; // Le pseudo existe déjà
+        }
+      }
+    }
+    return true; // Le pseudo est unique
+  });
+}

@@ -66,7 +66,9 @@ if (!userId) {
         gameDiv.style.display = "block";
         startGame();
         afficherScores(); // Charger les scores dès la connexion
-      }).catch((error) => console.error("Erreur d'authentification :", error));
+      }).catch((error) => {
+        console.error("Erreur d'authentification :", error);
+      });
     });
   });
 } else {

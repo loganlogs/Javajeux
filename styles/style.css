@@ -1,3 +1,49 @@
+
+/* Style du sélecteur de thème en haut à droite */
+.theme-selector {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  gap: 10px;
+}
+
+.theme {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.theme:hover {
+  transform: scale(1.1); /* Effet de zoom au survol */
+}
+
+/* Thème Cyberpunk */
+.cyberpunk {
+  background-color: #00ff00; /* Vert fluo */
+  color: #00ff00;
+}
+
+/* Thème Sakura */
+.sakura {
+  background-color: #ff69b4; /* Rose Sakura */
+  color: #ff69b4;
+}
+
+/* Thème Lux */
+.lux {
+  background-color: #fff700; /* Jaune Lux */
+  color: #fff700;
+}
+
+/* Thème Horror */
+.horror {
+  background-color: #8b0000; /* Rouge sang */
+  color: #8b0000;
+}
+
 /* Reset et style global */
 * {
   margin: 0;

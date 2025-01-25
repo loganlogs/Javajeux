@@ -47,10 +47,10 @@
     <!-- Section pour changer de thème -->
     <div id="themeSelector">
       <h3>Choisissez un thème :</h3>
-      <button id="theme1">Cyberpunk</button>
-      <button id="theme2">Lux</button>
-      <button id="theme3">Horror</button>
-      <button id="theme4">Sakura</button>
+      <div class="theme-box" id="theme1" style="background-color: #00ff00;">Cyberpunk</div>
+      <div class="theme-box" id="theme2" style="background-color: #e5e5e5;">Lux</div>
+      <div class="theme-box" id="theme3" style="background-color: #ff0000;">Horror</div>
+      <div class="theme-box" id="theme4" style="background-color: #ff66b2;">Sakura</div>
     </div>
 
     <!-- Tableau des scores -->
@@ -106,6 +106,22 @@
           alert("Veuillez entrer un pseudo !");
         }
       });
+
+      // Ajouter un écouteur d'événements pour chaque carré de thème
+      document.getElementById('theme1').addEventListener('click', () => changeTheme('theme-cyberpunk'));
+      document.getElementById('theme2').addEventListener('click', () => changeTheme('theme-lux'));
+      document.getElementById('theme3').addEventListener('click', () => changeTheme('theme-horror'));
+      document.getElementById('theme4').addEventListener('click', () => changeTheme('theme-sakura'));
+
+      // Fonction pour changer de thème
+      function changeTheme(themeClass) {
+        // Supprimer les classes de thème existantes
+        document.body.classList.remove('theme-cyberpunk', 'theme-lux', 'theme-horror', 'theme-sakura');
+
+        // Ajouter la nouvelle classe de thème
+        document.body.classList.add(themeClass);
+      }
     </script>
+
   </body>
 </html>

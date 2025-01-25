@@ -161,19 +161,20 @@ function startGame() {
  * Vérification de la proposition utilisateur
  */
 function verifier() {
-  const proposition = Number(document.getElementById("proposition").value);
+  const proposition = document.getElementById("proposition").value.trim();
+  const numberProposition = Number(proposition);
 
-  // Vérification si la proposition est un nombre entre 1 et 100
-  if (isNaN(proposition) || proposition < 1 || proposition > 100) {
+  // Vérification si la proposition est un nombre valide entre 1 et 100
+  if (isNaN(numberProposition) || numberProposition < 1 || numberProposition > 100) {
     document.querySelector(".tropHautTropBas").textContent = "Veuillez entrer un nombre valide entre 1 et 100.";
     return;
   }
 
   compteur++;
 
-  if (proposition === randomNumber) {
+  if (numberProposition === randomNumber) {
     handleWin();
-  } else if (proposition < randomNumber) {
+  } else if (numberProposition < randomNumber) {
     document.querySelector(".tropHautTropBas").textContent = "C'est plus grand !";
   } else {
     document.querySelector(".tropHautTropBas").textContent = "C'est plus petit !";
@@ -183,7 +184,7 @@ function verifier() {
   document.getElementById("proposition").value = '';
   document.getElementById("proposition").focus();
 
-  if (compteur === maxTentatives && proposition !== randomNumber) {
+  if (compteur === maxTentatives && numberProposition !== randomNumber) {
     handleLoss();
   }
 }

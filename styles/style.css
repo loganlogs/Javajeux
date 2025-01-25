@@ -153,6 +153,7 @@ button#loginButton:hover {
 
 #scoreTable tr:hover {
   background-color: #5a5a5a; /* Survol de ligne avec un fond un peu plus clair */
+  cursor: pointer; /* Changer le curseur pour indiquer que c'est cliquable */
 }
 
 /* Section des profils */
@@ -263,4 +264,46 @@ button#loginButton:hover {
 #difficulty option:hover {
   background-color: #1a1a1a;
   color: #00ff00;
+}
+
+/* Effet d'ombre sur les éléments interactifs */
+input[type="text"]:focus, input[type="number"]:focus, button:hover {
+  box-shadow: 0 0 15px #00ff00; /* Ombre verte */
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+/* Animation pour l'apparition des titres de section */
+h2, h3 {
+  opacity: 0;
+  transform: translateY(-20px);
+  animation: fadeInUp 1s forwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Survol des lignes dans le tableau des scores */
+#scoreTable tr:hover {
+  background-color: #5a5a5a; /* Survol de ligne avec fond plus clair */
+  cursor: pointer; /* Changer le curseur pour indiquer que c'est cliquable */
+}
+
+/* Ajouter un effet de survol pour les colonnes */
+#scoreTable td:last-child:hover {
+  color: #00ff00; /* Colorier le score en vert lors du survol */
+}
+
+/* Survol des liens dans la section "Suivez-moi" */
+#userProfileSection ul li a:hover {
+  color: #00ff00; /* Couleur de survol verte */
+  text-decoration: underline; /* Ajouter un soulignement lors du survol */
+  transition: color 0.3s ease, text-decoration 0.3s ease;
 }

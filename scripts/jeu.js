@@ -47,6 +47,7 @@ function setupLogin() {
   // Ajouter l'événement "Entrée" pour la validation du pseudo
   usernameInput.addEventListener("keydown", (event) => {
     if (event.key === "Enter") {
+      event.preventDefault(); // Empêche la soumission du formulaire si un formulaire existe
       loginButton.click(); // Simuler un clic sur le bouton de connexion
     }
   });
@@ -125,6 +126,14 @@ function startGame() {
   document.getElementById("reset").style.display = "none";
 
   document.getElementById("proposition").focus();
+
+  // Écouter la touche "Entrée" pour la proposition
+  document.getElementById("proposition").addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault(); // Empêche la soumission du formulaire si un formulaire existe
+      verifier(); // Appeler la fonction de vérification
+    }
+  });
 }
 
 /** 

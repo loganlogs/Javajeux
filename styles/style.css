@@ -192,33 +192,21 @@ button#loginButton:hover {
   margin: 8px 0;
 }
 
+/* Ajout des icônes pour les réseaux sociaux */
 #userProfileSection ul li a {
   text-decoration: none;
   color: #8aff80;
   font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 }
 
 #userProfileSection ul li a:hover {
-  color: #00ff00;
-  text-decoration: underline;
-}
-
-/* Animation pour l'affichage des résultats */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.informations p {
-  margin: 5px 0;
-  font-size: 1rem;
-  animation: fadeIn 1s ease-in-out;
+  color: #00ff00; /* Couleur de survol verte */
+  text-decoration: underline; /* Ajouter un soulignement lors du survol */
+  transition: color 0.3s ease, text-decoration 0.3s ease;
 }
 
 /* Bouton pour la section rétractable */

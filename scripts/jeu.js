@@ -49,35 +49,41 @@ if (!userId) {
       return;
     }
 
-    // Vérification de l'unicité du pseudo
-    const isUnique = await verifierPseudo(username);
-    if (!isUnique) {
-      alert("Ce pseudo est déjà pris, choisissez-en un autre.");
-      return;
+    try {
+      // Vérification de l'unicité du pseudo
+      const isUnique = await verifierPseudo(username);
+      if (!isUnique) {
+        alert("Ce pseudo est déjà pris, choisissez-en un autre.");
+        return;
+      }
+
+      // Connexion avec un nouveau pseudo
+      signInAnonymously(auth)
+        .then(() => {
+          auth.onAuthStateChanged(user => {
+            if (user) {
+              console.log("Utilisateur authentifié :", user.uid);
+
+              // L'utilisateur est authentifié, on sauvegarde son ID
+              userId = user.uid;
+              localStorage.setItem("userId", userId);
+              localStorage.setItem("username", username);
+
+              loginDiv.style.display = "none";
+              gameDiv.style.display = "block";
+
+              startGame();
+              afficherScores(); // Charger les scores dès la connexion
+            } else {
+              console.log("Utilisateur non authentifié");
+            }
+          });
+        })
+        .catch((error) => console.error("Erreur d'authentification :", error));
+    } catch (error) {
+      console.error("Erreur lors de la vérification :", error);
+      alert("Impossible de vérifier le pseudo en ce moment. Réessayez plus tard.");
     }
-
-    // Connexion avec un nouveau pseudo
-    signInAnonymously(auth)
-      .then(() => {
-        const user = auth.currentUser;
-        if (user) {
-          console.log("Utilisateur authentifié :", user.uid);
-
-          // L'utilisateur est authentifié, on sauvegarde son ID
-          userId = user.uid;
-          localStorage.setItem("userId", userId);
-          localStorage.setItem("username", username);
-
-          loginDiv.style.display = "none";
-          gameDiv.style.display = "block";
-
-          startGame();
-          afficherScores(); // Charger les scores dès la connexion
-        } else {
-          console.error("Erreur : l'utilisateur n'est pas authentifié.");
-        }
-      })
-      .catch((error) => console.error("Erreur d'authentification :", error));
   });
 } else {
   // Si déjà connecté avec cookie, on charge le jeu directement
@@ -152,12 +158,12 @@ function sauvegarderScore(username, points) {
   get(userRef).then((snapshot) => {
     if (snapshot.exists()) {
       const existingData = snapshot.val();
-      const newScore = (existingData.score || 0) + points;
-      update(userRef, { username, score: newScore });
+      const newScore = existingData.score + points;
+      update(userRef, { score: newScore });
     } else {
       set(userRef, { username: username, score: points });
     }
-  }).catch((error) => console.error("Erreur lors de la sauvegarde des scores :", error));
+  });
 }
 
 // Afficher les scores dans le tableau
@@ -180,7 +186,7 @@ function afficherScores() {
       `;
       scoreTable.appendChild(row);
     });
-  }, (error) => console.error("Erreur lors de la récupération des scores :", error));
+  });
 }
 
 // Reset de la partie
@@ -195,13 +201,18 @@ document.getElementById("proposition").addEventListener("keypress", (e) => {
 document.getElementById("envoyer").addEventListener("click", verifier);
 
 // Vérifier si le pseudo est unique avant de l'enregistrer dans la base de données
-function verifierPseudo(pseudo) {
+async function verifierPseudo(pseudo) {
   const scoresRef = ref(db, "scores");
-  return get(scoresRef).then((snapshot) => {
-    const scoresData = snapshot.val();
-    return !scoresData || !Object.values(scoresData).some(data => data.username === pseudo);
-  }).catch((error) => {
+  try {
+    const snapshot = await get(scoresRef);
+    if (snapshot.exists()) {
+      const scoresData = snapshot.val();
+      console.log("Données récupérées :", scoresData);
+      return !Object.values(scoresData).some(data => data.username === pseudo);
+    }
+    return true; // Si aucune donnée, le pseudo est unique
+  } catch (error) {
     console.error("Erreur lors de la vérification du pseudo :", error);
-    return false;
-  });
+    throw error; // Laisser l'erreur remonter pour être gérée
+  }
 }

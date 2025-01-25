@@ -15,7 +15,7 @@ body {
   transition: background-color 0.5s ease, color 0.5s ease, box-shadow 0.5s ease;
 }
 
-/* Thème cyberpunk */
+/* Thème Cyberpunk */
 .theme-cyberpunk {
   background-color: #111;
   color: #00ff00;
@@ -33,25 +33,58 @@ body {
   text-shadow: 0 0 5px #00ff00, 0 0 10px #00ff00;
 }
 
-/* Thème lux */
-.theme-lux {
-  background-color: #fff;
-  color: #333;
-  font-family: 'Arial', sans-serif;
+.theme-cyberpunk button {
+  background-color: #00ff00;
+  color: black;
 }
 
-.theme-lux h1 {
+.theme-cyberpunk table {
+  background-color: #333;
+  color: #00ff00;
+}
+
+/* Thème Sakura (rose et blanc) */
+.theme-sakura {
+  background-color: #ffd8e3;
+  color: #ff66b2;
+  font-family: 'Sakura', sans-serif;
+}
+
+.theme-sakura h1 {
   font-size: 4rem;
-  color: #333;
-  text-shadow: 0 0 10px #ffcc00, 0 0 15px #ffcc00;
+  color: #ff66b2;
+  text-shadow: 0 0 10px #ff66b2, 0 0 15px #ff3399;
 }
 
-.theme-lux p {
+.theme-sakura p {
   font-size: 1.2rem;
-  color: #333;
+  color: #ff66b2;
+  text-shadow: 0 0 5px #ff66b2, 0 0 10px #ff3399;
 }
 
-/* Thème horror */
+.theme-sakura button {
+  background-color: #ff66b2;
+  color: white;
+  border: 2px solid #ff3399;
+}
+
+.theme-sakura table {
+  background-color: #ffe6f1;
+  color: #ff66b2;
+}
+
+.theme-sakura .social-links li a {
+  background-color: #ff66b2;
+  color: white;
+  box-shadow: 0 0 15px #ff66b2;
+}
+
+.theme-sakura .social-links li a:hover {
+  background-color: #ff3399;
+  box-shadow: 0 0 15px #ff3399;
+}
+
+/* Thème Horror (noir et rouge) */
 .theme-horror {
   background-color: #2a2a2a;
   color: red;
@@ -70,23 +103,66 @@ body {
   text-shadow: 0 0 5px red, 0 0 10px #8b0000;
 }
 
-/* Thème sakura */
-.theme-sakura {
-  background-color: #ffd8e3;
-  color: #000;
-  font-family: 'Sakura', sans-serif;
+.theme-horror button {
+  background-color: #8b0000;
+  color: white;
 }
 
-.theme-sakura h1 {
+.theme-horror table {
+  background-color: #333;
+  color: red;
+}
+
+.theme-horror .social-links li a {
+  background-color: #8b0000;
+  color: white;
+  box-shadow: 0 0 15px red;
+}
+
+.theme-horror .social-links li a:hover {
+  background-color: #b30000;
+  box-shadow: 0 0 15px #b30000;
+}
+
+/* Thème Lux (bleu et doré) */
+.theme-lux {
+  background-color: #001f3d;
+  color: #ffcc00;
+  font-family: 'Arial', sans-serif;
+}
+
+.theme-lux h1 {
   font-size: 4rem;
-  color: #ff66b2;
-  text-shadow: 0 0 10px #ff66b2, 0 0 15px #ff3399;
+  color: #ffcc00;
+  text-shadow: 0 0 10px #ffcc00, 0 0 15px #b39b00;
 }
 
-.theme-sakura p {
+.theme-lux p {
   font-size: 1.2rem;
-  color: #ff66b2;
-  text-shadow: 0 0 5px #ff66b2, 0 0 10px #ff3399;
+  color: #ffcc00;
+  text-shadow: 0 0 5px #ffcc00, 0 0 10px #b39b00;
+}
+
+.theme-lux button {
+  background-color: #ffcc00;
+  color: #001f3d;
+  border: 2px solid #b39b00;
+}
+
+.theme-lux table {
+  background-color: #002b4d;
+  color: #ffcc00;
+}
+
+.theme-lux .social-links li a {
+  background-color: #ffcc00;
+  color: #001f3d;
+  box-shadow: 0 0 15px #ffcc00;
+}
+
+.theme-lux .social-links li a:hover {
+  background-color: #b39b00;
+  box-shadow: 0 0 15px #b39b00;
 }
 
 /* Style du sélecteur de thème */
@@ -111,6 +187,22 @@ body {
   opacity: 0.8;
 }
 
+.theme-cyberpunk .theme {
+  background-color: #00ff00;
+}
+
+.theme-sakura .theme {
+  background-color: #ff66b2;
+}
+
+.theme-horror .theme {
+  background-color: #8b0000;
+}
+
+.theme-lux .theme {
+  background-color: #ffcc00;
+}
+
 /* Boutons généraux */
 button {
   padding: 15px 30px;
@@ -118,8 +210,6 @@ button {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  background-color: #4CAF50;
-  color: white;
   transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
@@ -162,7 +252,6 @@ footer {
   max-width: 800px;
   margin-top: 30px;
   border-collapse: collapse;
-  background-color: #333;
   border-radius: 10px;
   overflow: hidden;
 }

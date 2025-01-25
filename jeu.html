@@ -60,65 +60,34 @@
       </table>
     </div>
 
-    <!-- Section "Suivez-moi" rétractable -->
+    <!-- Section "Suivez-moi" -->
     <div id="userProfileSection" class="profile-section">
-      <button id="toggleProfiles" class="toggle-btn" aria-expanded="false" aria-controls="userProfileList">
+      <button id="toggleProfiles" class="toggle-btn">
         ▼ Suivez-moi sur
       </button>
-      <ul id="userProfileList" class="profile-links">
-        <li><a href="https://guns.lol/sw9lly" target="_blank" aria-label="Mon guns.lol">Mon guns.lol</a></li>
-        <li>
-          <a href="https://open.spotify.com/playlist/0yKcagw8zOzL2HCjIrJBCF?si=8e06efae90ff4259" 
-             target="_blank" 
-             aria-label="Ma playlist Spotify"
-          >
-            Ma playlist Spotify
-          </a>
-        </li>
-        <li>
-          <a href="https://discord.gg/JWMu9dqdGk" target="_blank" aria-label="Discord">
-            Discord
-          </a>
-        </li>
-        <li>
-          <a href="https://www.instagram.com/sw9qlf" target="_blank" aria-label="Mon Instagram">
-            Mon Instagram
-          </a>
-        </li>
-        <li>
-          <a href="https://www.tiktok.com/@sw9lly" target="_blank" aria-label="Mon TikTok">
-            Mon TikTok
-          </a>
-        </li>
-        <li>
-          <a href="https://www.twitch.tv/sw9lly" target="_blank" aria-label="Mon Twitch">
-            Mon Twitch
-          </a>
-        </li>
-        <li>
-          <a href="https://cyber-learning.fr/" target="_blank" aria-label="Cyber-Learning">
-            Cyber-Learning
-          </a>
-        </li>
+      <ul id="userProfileList" class="profile-links" style="display: none;">
+        <li><a href="https://guns.lol/sw9lly" target="_blank">Mon guns.lol</a></li>
+        <li><a href="https://open.spotify.com/playlist/0yKcagw8zOzL2HCjIrJBCF?si=8e06efae90ff4259" target="_blank">Ma playlist Spotify</a></li>
+        <li><a href="https://discord.gg/JWMu9dqdGk" target="_blank">Discord</a></li>
+        <li><a href="https://www.instagram.com/sw9qlf" target="_blank">Mon Instagram</a></li>
+        <li><a href="https://www.tiktok.com/@sw9lly" target="_blank">Mon TikTok</a></li>
+        <li><a href="https://www.twitch.tv/sw9lly" target="_blank">Mon Twitch</a></li>
+        <li><a href="https://cyber-learning.fr/" target="_blank">Cyber-Learning</a></li>
       </ul>
     </div>
 
     <!-- Script JS -->
-    <script type="module" src="scripts/jeu.js"></script>
-
-    <!-- Script pour le toggle -->
     <script>
       const toggleButton = document.getElementById('toggleProfiles');
-      const profileSection = document.getElementById('userProfileSection');
+      const profileList = document.getElementById('userProfileList');
 
       toggleButton.addEventListener('click', () => {
-        // Toggle de la classe 'open' pour afficher/masquer la section
-        profileSection.classList.toggle('open');
-        
-        // Changer le texte du bouton en fonction de l'état
-        if (profileSection.classList.contains('open')) {
-          toggleButton.textContent = '▲ Masquer';
+        // Toggle de l'affichage des profils
+        if (profileList.style.display === 'none') {
+          profileList.style.display = 'block';
+          toggleButton.textContent = '▲ Masquer les réseaux';
         } else {
+          profileList.style.display = 'none';
           toggleButton.textContent = '▼ Suivez-moi sur';
         }
       });

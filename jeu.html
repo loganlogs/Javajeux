@@ -82,11 +82,12 @@
       const profileList = document.getElementById('userProfileList');
 
       toggleButton.addEventListener('click', () => {
-        // Toggle de l'affichage des profils
+        // Si la liste des profils est cachée, on l'affiche
         if (profileList.style.display === 'none') {
           profileList.style.display = 'block';
           toggleButton.textContent = '▲ Masquer les réseaux';
         } else {
+          // Si la liste est déjà visible, on la cache
           profileList.style.display = 'none';
           toggleButton.textContent = '▼ Suivez-moi sur';
         }

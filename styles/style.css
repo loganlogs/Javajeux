@@ -295,3 +295,37 @@ h2, h3 {
   text-decoration: underline; /* Ajouter un soulignement lors du survol */
   transition: color 0.3s ease, text-decoration 0.3s ease;
 }
+
+/* Styles spécifiques pour les réseaux sociaux */
+.social-links {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0;
+}
+
+.social-links li {
+  margin: 5px 0;
+}
+
+.social-links li a {
+  text-decoration: none;
+  color: #8aff80;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.social-links li a:hover {
+  color: #00ff00; /* Couleur verte au survol */
+  text-decoration: underline;
+}
+
+.social-links li a i {
+  font-size: 1.5rem;
+  transition: transform 0.3s ease;
+}
+
+.social-links li a:hover i {
+  transform: scale(1.2); /* Agrandir l'icône au survol */
+}

@@ -27,7 +27,7 @@
       <div class="form">
         <label for="proposition">Votre proposition :</label>
         <input 
-          type="number" 
+          type="text" 
           id="proposition" 
           placeholder="Entrez un nombre" 
           aria-label="Entrez votre proposition"
@@ -105,25 +105,6 @@
     <!-- Script JS -->
     <script type="module" src="scripts/jeu.js"></script>
 
-    <!-- Script pour l'affichage du jeu -->
-    <script>
-      document.getElementById('loginButton').addEventListener('click', function() {
-        // Masquer la section de connexion
-        document.getElementById('login').style.display = 'none';
-        
-        // Afficher la section du jeu
-        document.getElementById('game').style.display = 'block';
-      });
-
-      document.getElementById('envoyer').addEventListener('click', function() {
-        const proposition = document.getElementById('proposition').value;
-        if (proposition) {
-          // Ici tu peux vérifier si la proposition est correcte et afficher des messages
-          document.querySelector('.resultat').textContent = `Vous avez proposé : ${proposition}`;
-        }
-      });
-    </script>
-
     <!-- Script pour le toggle -->
     <script>
       const toggleButton = document.getElementById('toggleProfiles');
@@ -131,8 +112,14 @@
 
       toggleButton.addEventListener('click', () => {
         const expanded = toggleButton.getAttribute('aria-expanded') === 'true';
+        
+        // Toggle l'affichage de la section des profils
         profileSection.style.display = expanded ? 'none' : 'block';
+        
+        // Mettre à jour l'état aria-expanded
         toggleButton.setAttribute('aria-expanded', !expanded);
+        
+        // Mettre à jour le texte du bouton
         toggleButton.textContent = expanded ? '▼ Suivez-moi sur' : '▲ Masquer';
       });
     </script>

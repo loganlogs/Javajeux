@@ -38,11 +38,12 @@ if (!userId) {
 /** 
  * Configuration de la partie pour les nouveaux utilisateurs
  */
-function setupLogin() {
+async function setupLogin() {
   const loginDiv = document.getElementById("login");
   const gameDiv = document.getElementById("game");
   const usernameInput = document.getElementById("username");
   const loginButton = document.getElementById("loginButton");
+  const errorMessage = document.getElementById("errorMessage");
 
   // Ajouter l'événement "Entrée" pour la validation du pseudo
   usernameInput.addEventListener("keydown", (event) => {
@@ -67,21 +68,39 @@ function setupLogin() {
       return;
     }
 
-    // Connexion anonyme Firebase
-    try {
-      await signInAnonymously(auth);
-      userId = auth.currentUser.uid;
-      localStorage.setItem("userId", userId);
-      localStorage.setItem("username", username);
+    // Vérifier si le pseudo existe déjà dans la base de données
+    const usersRef = ref(db, "scores");
+    get(usersRef).then((snapshot) => {
+      const users = snapshot.val();
+      const usernamesTaken = Object.values(users).map(user => user.username);
 
-      loginDiv.style.display = "none";
-      gameDiv.style.display = "block";
+      if (usernamesTaken.includes(username)) {
+        errorMessage.style.display = 'block'; // Afficher le message d'erreur
+        return;
+      }
 
-      startGame();
-      afficherScores();
-    } catch (error) {
-      console.error("Erreur d'authentification :", error);
-    }
+      // Connexion anonyme Firebase
+      signInAnonymously(auth).then(() => {
+        userId = auth.currentUser.uid;
+        localStorage.setItem("userId", userId);
+        localStorage.setItem("username", username);
+
+        // Cacher l'écran de connexion et afficher le jeu
+        loginDiv.style.display = "none";
+        gameDiv.style.display = "block";
+
+        // Sauvegarder le pseudo dans la base de données
+        set(ref(db, 'scores/' + userId), {
+          username: username,
+          score: 0
+        });
+
+        startGame();
+        afficherScores();
+      }).catch((error) => {
+        console.error("Erreur d'authentification :", error);
+      });
+    });
   });
 }
 

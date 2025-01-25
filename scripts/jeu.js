@@ -203,11 +203,8 @@ function afficherScores() {
   });
 }
 
-/** 
- * Gestion des événements
- */
-document.getElementById("reset").addEventListener("click", startGame);
-document.getElementById("proposition").addEventListener("keypress", (e) => {
-  if (e.key === "Enter") verifier();
-});
+// Écouter l'événement sur le bouton envoyer
 document.getElementById("envoyer").addEventListener("click", verifier);
+
+// Écouter l'événement sur le bouton reset pour recommencer le jeu
+document.getElementById("reset").addEventListener("click", startGame);

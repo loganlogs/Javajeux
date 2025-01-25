@@ -28,9 +28,31 @@
 
 /* Thème Lux */
 .theme-lux {
-  background-color: #fff;
-  color: #000;
-  font-family: Arial, sans-serif;
+  background-color: #00204a; /* Bleu foncé velours */
+  color: #f4c542; /* Doré */
+  font-family: 'Arial', sans-serif;
+}
+
+.theme-lux h1 {
+  color: #f4c542;
+  text-shadow: 0 0 10px #f4c542, 0 0 20px #ffbf00;
+}
+
+.theme-lux p, .resultat, .tropHautTropBas {
+  color: #f4c542;
+  text-shadow: 0 0 5px #f4c542, 0 0 10px #ffbf00;
+}
+
+.theme-lux button, .theme-lux input[type="text"], .theme-lux input[type="number"], .theme-lux select {
+  background-color: #00204a;
+  color: #f4c542;
+  border: 2px solid #f4c542;
+}
+
+.theme-lux button:hover, .theme-lux input[type="submit"]:hover {
+  background-color: #f4c542;
+  color: #00204a;
+  border: 2px solid #ffbf00;
 }
 
 /* Thème Horror */
@@ -38,6 +60,28 @@
   background-color: #2a2a2a;
   color: red;
   font-family: 'Creepster', cursive;
+}
+
+.theme-horror h1 {
+  color: #ff0000;
+  text-shadow: 0 0 10px #ff0000, 0 0 20px #ff6666;
+}
+
+.theme-horror p, .resultat, .tropHautTropBas {
+  color: #ff6666;
+  text-shadow: 0 0 5px #ff0000, 0 0 10px #ff6666;
+}
+
+.theme-horror button, .theme-horror input[type="text"], .theme-horror input[type="number"], .theme-horror select {
+  background-color: #222222;
+  color: #ff0000;
+  border: 2px solid #ff0000;
+}
+
+.theme-horror button:hover, .theme-horror input[type="submit"]:hover {
+  background-color: #ff0000;
+  color: #ffffff;
+  border: 2px solid #ff6666;
 }
 
 /* Thème Sakura */
@@ -267,67 +311,13 @@ button#loginButton:hover {
 
 /* Ajout des icônes pour les réseaux sociaux */
 #userProfileSection ul li a {
-  text-decoration: none;
+  font-size: 20px;
   color: #8aff80;
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
+  text-decoration: none;
+  transition: color 0.3s ease, transform 0.3s ease;
 }
 
 #userProfileSection ul li a:hover {
-  color: #00ff00; /* Couleur de survol verte */
-  text-decoration: underline; /* Ajouter un soulignement lors du survol */
-  transition: color 0.3s ease, text-decoration 0.3s ease;
-}
-
-/* Bouton pour la section rétractable */
-.toggle-btn {
-  font-size: 1.5rem;
-  background: none;
-  border: none;
-  color: #8aff80;
-  cursor: pointer;
-  transition: transform 0.3s ease, color 0.3s ease;
-}
-
-.toggle-btn.rotate {
-  transform: rotate(180deg);
-}
-
-.toggle-btn:hover {
   color: #00ff00;
-}
-
-/* MENU DEROULANT */
-#difficulty {
-  margin-top: 20px;
-  padding: 10px;
-  font-size: 1rem;
-  border-radius: 10px;
-  border: 2px solid #8aff80; /* Bordure vert clair */
-  background: #2a2a2a; /* Fond sombre */
-  color: #8aff80; /* Texte en vert clair */
-  box-shadow: 0 0 5px #00ff00;
-  transition: 0.3s ease;
-  width: 100%; /* Largeur responsive */
-  max-width: 300px;
-}
-
-/* Style pour les options du menu déroulant */
-#difficulty option {
-  background: #2a2a2a;
-  color: #8aff80;
-  padding: 10px;
-}
-
-#difficulty option:hover {
-  background-color: #1a1a1a;
-  color: #00ff00;
-}
-
-/* Effet d'ombre sur les éléments interactifs */
-input[type="text"]:focus, input[type="number"]:focus, button:hover, #difficulty option:hover {
-  box-shadow: 0 0 10px #00ff00;
+  transform: scale(1.1); /* Zoom au survol */
 }

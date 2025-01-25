@@ -216,29 +216,3 @@ async function verifierPseudo(pseudo) {
   }
 }
 
-// Sélectionner tous les carrés du sélecteur de thème
-const themes = document.querySelectorAll('.theme');
-
-// Appliquer les changements de thème
-themes.forEach(theme => {
-  theme.addEventListener('click', () => {
-    document.body.className = ''; // Réinitialiser la classe du body
-
-    // Ajouter la classe du thème sélectionné
-    document.body.classList.add(theme.id);
-
-    // Mettre à jour l'apparence des liens et autres éléments si nécessaire
-    // Exemple : les liens pourraient devenir d'une couleur différente selon le thème
-    const links = document.querySelectorAll('a');
-    if (theme.id === 'cyberpunk') {
-      links.forEach(link => link.style.color = '#00ff00');
-    } else if (theme.id === 'sakura') {
-      links.forEach(link => link.style.color = '#ff69b4');
-    } else if (theme.id === 'lux') {
-      links.forEach(link => link.style.color = '#fff700');
-    } else if (theme.id === 'horror') {
-      links.forEach(link => link.style.color = '#8b0000');
-    }
-  });
-});
-

@@ -62,10 +62,16 @@ if (!userId) {
         localStorage.setItem("userId", userId);
         localStorage.setItem("username", username);
         console.log("Utilisateur connecté anonymement !");
-        loginDiv.style.display = "none";
-        gameDiv.style.display = "block";
-        startGame();
-        afficherScores(); // Charger les scores dès la connexion
+        
+        // Vérifie si l'utilisateur est authentifié avant de continuer
+        if (auth.currentUser) {
+          loginDiv.style.display = "none";
+          gameDiv.style.display = "block";
+          startGame();
+          afficherScores(); // Charger les scores dès la connexion
+        } else {
+          console.error("Erreur : Utilisateur non authentifié !");
+        }
       }).catch((error) => {
         console.error("Erreur d'authentification :", error);
       });

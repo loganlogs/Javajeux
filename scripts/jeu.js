@@ -226,10 +226,13 @@ function afficherScores() {
 }
 
 // Écouter l'événement sur le bouton envoyer
-document.getElementById("envoyer").addEventListener("click", verifier);
+document.getElementById("envoyer")?.addEventListener("click", verifier);
 
 // Écouter l'événement sur le bouton reset pour recommencer le jeu
-document.getElementById("reset").addEventListener("click", startGame);
+document.getElementById("reset")?.addEventListener("click", startGame);
 
-// Menu déroulant
-document.getElementById("difficulty").addEventListener("change", setupGame);
+// Menu déroulant : vérifier si l'élément existe avant d'ajouter l'écouteur
+const difficultyElement = document.getElementById("difficulty");
+if (difficultyElement) {
+  difficultyElement.addEventListener("change", setupGame);
+}

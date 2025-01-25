@@ -9,30 +9,43 @@
   <body>
     <h1>Jeu : Devinez un nombre</h1>
 
-    <div id="login">
+    <!-- Section de connexion -->
+    <div id="login" class="login-section">
       <label for="username">Nom d'utilisateur (facultatif) :</label>
-      <input type="text" id="username" placeholder="Entrez votre pseudo">
-      <input type="submit" id="loginButton" value="Jouer">
+      <input 
+        type="text" 
+        id="username" 
+        placeholder="Entrez votre pseudo" 
+        aria-label="Entrez votre nom d'utilisateur"
+      >
+      <button id="loginButton">Jouer</button>
     </div>
 
-    <div id="game" style="display: none;">
-      <p>Un nombre entre 1 et 100 a été choisi. Essayez de deviner !</p>
+    <!-- Section principale du jeu -->
+    <div id="game" class="game-section" style="display: none;">
+      <p>Un nombre entre 1 et 100 a été choisi. Essayez de deviner !</p>
       <div class="form">
         <label for="proposition">Votre proposition :</label>
-        <input type="text" id="proposition" placeholder="Entrez un nombre">
+        <input 
+          type="text" 
+          id="proposition" 
+          placeholder="Entrez un nombre" 
+          aria-label="Entrez votre proposition"
+        >
         <button class="envoyer" id="envoyer">Envoyer</button>
-        <button class="reset" id="reset" style="display:none;">Reset</button>
+        <button class="reset" id="reset" style="display: none;">Reset</button>
       </div>
       <div class="informations">
-        <p class="resultat"></p>
+        <p class="resultat" aria-live="polite"></p>
         <p class="tropHautTropBas"></p>
         <p class="tentatives"></p>
       </div>
     </div>
 
+    <!-- Tableau des scores -->
     <h2>Tableau des scores</h2>
     <div id="scoreTableContainer">
-      <table id="scoreTable">
+      <table id="scoreTable" aria-label="Tableau des scores">
         <thead>
           <tr>
             <th>Rang</th>
@@ -41,26 +54,56 @@
           </tr>
         </thead>
         <tbody>
-          <!-- Les scores seront ajoutés ici -->
+          <!-- Les scores seront ajoutés ici dynamiquement -->
         </tbody>
       </table>
     </div>
 
-<div id="userProfileSection" class="profile-section">
-  <button id="toggleProfiles" class="toggle-btn">▼</button> <!-- Bouton pour basculer -->
-  <h3>Suivez-moi sur :</h3>
-  <ul>
-    <li><a href="https://guns.lol/sw9lly" target="_blank">Mon guns.lol</a></li>
-    <li><a href="https://open.spotify.com/playlist/0yKcagw8zOzL2HCjIrJBCF?si=8e06efae90ff4259" target="_blank">Ma playlist Spotify</a></li>
-    <li><a href="https://discord.gg/JWMu9dqdGk" target="_blank">Discord</a></li>
-    <li><a href="https://www.instagram.com/sw9qlf" target="_blank">Mon Instagram</a></li>
-    <li><a href="https://www.tiktok.com/@sw9lly" target="_blank">Mon TikTok</a></li>
-    <li><a href="https://www.twitch.tv/sw9lly" target="_blank">Mon Twitch</a></li>
-    <li><a href="https://cyber-learning.fr/" target="_blank">Cyber-Learning</a></li>
-  </ul>
-</div>
+    <!-- Section "Suivez-moi" rétractable -->
+    <div id="userProfileSection" class="profile-section">
+      <button id="toggleProfiles" class="toggle-btn" aria-expanded="false" aria-controls="userProfileList">
+        ▼
+      </button>
+      <h3>Suivez-moi sur :</h3>
+      <ul id="userProfileList" class="profile-links">
+        <li><a href="https://guns.lol/sw9lly" target="_blank" aria-label="Mon guns.lol">Mon guns.lol</a></li>
+        <li>
+          <a href="https://open.spotify.com/playlist/0yKcagw8zOzL2HCjIrJBCF?si=8e06efae90ff4259" 
+             target="_blank" 
+             aria-label="Ma playlist Spotify"
+          >
+            Ma playlist Spotify
+          </a>
+        </li>
+        <li>
+          <a href="https://discord.gg/JWMu9dqdGk" target="_blank" aria-label="Discord">
+            Discord
+          </a>
+        </li>
+        <li>
+          <a href="https://www.instagram.com/sw9qlf" target="_blank" aria-label="Mon Instagram">
+            Mon Instagram
+          </a>
+        </li>
+        <li>
+          <a href="https://www.tiktok.com/@sw9lly" target="_blank" aria-label="Mon TikTok">
+            Mon TikTok
+          </a>
+        </li>
+        <li>
+          <a href="https://www.twitch.tv/sw9lly" target="_blank" aria-label="Mon Twitch">
+            Mon Twitch
+          </a>
+        </li>
+        <li>
+          <a href="https://cyber-learning.fr/" target="_blank" aria-label="Cyber-Learning">
+            Cyber-Learning
+          </a>
+        </li>
+      </ul>
+    </div>
 
-
+    <!-- Script JS -->
     <script type="module" src="scripts/jeu.js"></script>
   </body>
 </html>

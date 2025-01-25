@@ -60,36 +60,26 @@
       </table>
     </div>
 
-    <!-- Section "Suivez-moi" -->
-    <div id="userProfileSection" class="profile-section">
-      <button id="toggleProfiles" class="toggle-btn">
-        ▼ Suivez-moi sur
-      </button>
-      <ul id="userProfileList" class="profile-links" style="display: none;">
-        <li><a href="https://guns.lol/sw9lly" target="_blank">Mon guns.lol</a></li>
-        <li><a href="https://open.spotify.com/playlist/0yKcagw8zOzL2HCjIrJBCF?si=8e06efae90ff4259" target="_blank">Ma playlist Spotify</a></li>
-        <li><a href="https://discord.gg/JWMu9dqdGk" target="_blank">Discord</a></li>
-        <li><a href="https://www.instagram.com/sw9qlf" target="_blank">Mon Instagram</a></li>
-        <li><a href="https://www.tiktok.com/@sw9lly" target="_blank">Mon TikTok</a></li>
-        <li><a href="https://www.twitch.tv/sw9lly" target="_blank">Mon Twitch</a></li>
-        <li><a href="https://cyber-learning.fr/" target="_blank">Cyber-Learning</a></li>
-      </ul>
-    </div>
-
     <!-- Script JS -->
-    <script>
-      const toggleButton = document.getElementById('toggleProfiles');
-      const profileList = document.getElementById('userProfileList');
+    <script type="module" src="scripts/jeu.js"></script>
 
-      toggleButton.addEventListener('click', () => {
-        // Si la liste des profils est cachée, on l'affiche
-        if (profileList.style.display === 'none') {
-          profileList.style.display = 'block';
-          toggleButton.textContent = '▲ Masquer les réseaux';
+    <!-- Script pour la connexion et afficher le jeu -->
+    <script>
+      // Récupérer les éléments nécessaires
+      const loginSection = document.getElementById('login');
+      const gameSection = document.getElementById('game');
+      const loginButton = document.getElementById('loginButton');
+
+      // Gérer l'événement pour afficher le jeu après avoir cliqué sur "Jouer"
+      loginButton.addEventListener('click', function() {
+        const username = document.getElementById('username').value.trim();
+
+        // Si un pseudo est entré (optionnel) ou même vide, on affiche le jeu
+        if (username !== "") {
+          loginSection.style.display = "none";  // Cacher la section de connexion
+          gameSection.style.display = "block";  // Afficher la section du jeu
         } else {
-          // Si la liste est déjà visible, on la cache
-          profileList.style.display = 'none';
-          toggleButton.textContent = '▼ Suivez-moi sur';
+          alert("Veuillez entrer un pseudo !");
         }
       });
     </script>

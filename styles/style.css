@@ -1,10 +1,49 @@
-/* Reset et style global */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+/* Style du sélecteur de thème en haut à droite */
+.theme-selector {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  gap: 10px;
 }
 
+.theme {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.theme:hover {
+  transform: scale(1.1); /* Effet de zoom au survol */
+}
+
+/* Thème Cyberpunk */
+.cyberpunk {
+  background-color: #00ff00; /* Vert fluo */
+  color: #00ff00;
+}
+
+/* Thème Sakura */
+.sakura {
+  background-color: #ff69b4; /* Rose Sakura */
+  color: #ff69b4;
+}
+
+/* Thème Lux */
+.lux {
+  background-color: #fff700; /* Jaune Lux */
+  color: #fff700;
+}
+
+/* Thème Horror */
+.horror {
+  background-color: #8b0000; /* Rouge sang */
+  color: #8b0000;
+}
+
+/* Styles généraux */
 body {
   font-family: 'Share Tech Mono', monospace;
   background: radial-gradient(circle, #446e22, #0a0a0a); /* Fond sombre doux */
@@ -50,7 +89,6 @@ details summary:hover {
   color: #00ff00; /* Change la couleur du texte en vert plus lumineux au survol */
   text-shadow: 0 0 15px #00ff00, 0 0 20px #8aff80; /* Augmente l'effet de glow au survol */
 }
-
 
 /* Style des paragraphes */
 p, .resultat, .tropHautTropBas {
@@ -335,25 +373,24 @@ h2, h3 {
   gap: 10px;
   padding: 10px 20px; /* Un peu d'espace autour du texte */
   background-color: #444444; /* Fond gris */
-  border-radius: 30px; /* Coins arrondis pour un effet de bouton */
-  transition: all 0.3s ease; /* Animation fluide au survol */
-  width: auto; /* Laissez les boutons s'adapter au texte */
+  border-radius: 30px;
+  box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .social-links li a:hover {
-  color: #00ff00; /* Changer la couleur du texte au survol */
-  background-color: #333333; /* Changer le fond en gris plus foncé */
-  text-decoration: none; /* Pas de soulignement */
-  transform: translateY(-2px); /* Effet de "lift" pour l'animation */
-  box-shadow: 0 0 10px #00ff00; /* Ombre verte lors du survol */
+  background-color: #5a5a5a;
+  transform: scale(1.05);
 }
 
-.social-links li a i {
-  font-size: 1.5rem;
-  transition: transform 0.3s ease;
+/* Ajout de styles pour un footer */
+footer {
+  background-color: #222222;
+  color: #8aff80;
+  padding: 20px;
+  text-align: center;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
 }
-
-.social-links li a:hover i {
-  transform: scale(1.2); /* Agrandissement de l'icône au survol */
-}
-

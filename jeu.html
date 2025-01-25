@@ -112,16 +112,15 @@
       const profileSection = document.getElementById('userProfileSection');
 
       toggleButton.addEventListener('click', () => {
-        const expanded = toggleButton.getAttribute('aria-expanded') === 'true';
+        // Toggle de la classe 'open' pour afficher/masquer la section
+        profileSection.classList.toggle('open');
         
-        // Toggle l'affichage de la section des profils
-        profileSection.style.display = expanded ? 'none' : 'block';
-        
-        // Mettre à jour l'état aria-expanded
-        toggleButton.setAttribute('aria-expanded', !expanded);
-        
-        // Mettre à jour le texte du bouton
-        toggleButton.textContent = expanded ? '▼ Suivez-moi sur' : '▲ Masquer';
+        // Changer le texte du bouton en fonction de l'état
+        if (profileSection.classList.contains('open')) {
+          toggleButton.textContent = '▲ Masquer';
+        } else {
+          toggleButton.textContent = '▼ Suivez-moi sur';
+        }
       });
     </script>
   </body>

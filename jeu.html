@@ -45,12 +45,11 @@
     </div>
 
     <!-- Section pour changer de thème -->
-    <div id="themeSelector">
-      <h3>Choisissez un thème :</h3>
-      <div class="theme-box" id="theme1" style="background-color: #00ff00;">Cyberpunk</div>
-      <div class="theme-box" id="theme2" style="background-color: #e5e5e5;">Lux</div>
-      <div class="theme-box" id="theme3" style="background-color: #ff0000;">Horror</div>
-      <div class="theme-box" id="theme4" style="background-color: #ff66b2;">Sakura</div>
+    <div id="themeSelector" class="theme-selector">
+      <button id="theme1" class="theme theme-cyberpunk"></button>
+      <button id="theme2" class="theme theme-lux"></button>
+      <button id="theme3" class="theme theme-horror"></button>
+      <button id="theme4" class="theme theme-sakura"></button>
     </div>
 
     <!-- Tableau des scores -->
@@ -93,6 +92,7 @@
       const loginSection = document.getElementById('login');
       const gameSection = document.getElementById('game');
       const loginButton = document.getElementById('loginButton');
+      const themeButtons = document.querySelectorAll('.theme');
 
       // Gérer l'événement pour afficher le jeu après avoir cliqué sur "Jouer"
       loginButton.addEventListener('click', function() {
@@ -107,21 +107,13 @@
         }
       });
 
-      // Ajouter un écouteur d'événements pour chaque carré de thème
-      document.getElementById('theme1').addEventListener('click', () => changeTheme('theme-cyberpunk'));
-      document.getElementById('theme2').addEventListener('click', () => changeTheme('theme-lux'));
-      document.getElementById('theme3').addEventListener('click', () => changeTheme('theme-horror'));
-      document.getElementById('theme4').addEventListener('click', () => changeTheme('theme-sakura'));
-
-      // Fonction pour changer de thème
-      function changeTheme(themeClass) {
-        // Supprimer les classes de thème existantes
-        document.body.classList.remove('theme-cyberpunk', 'theme-lux', 'theme-horror', 'theme-sakura');
-
-        // Ajouter la nouvelle classe de thème
-        document.body.classList.add(themeClass);
-      }
+      // Changer de thème en fonction du bouton cliqué
+      themeButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          const themeClass = this.classList[1]; // Récupérer le thème sélectionné
+          document.body.className = themeClass; // Appliquer la classe du thème au body
+        });
+      });
     </script>
-
   </body>
 </html>

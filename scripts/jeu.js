@@ -24,157 +24,88 @@ let username = localStorage.getItem("username");
 let randomNumber;
 let compteur = 0;
 let score = 0;
-let maxTentatives = 10; // Par défaut, 10 tentatives
 
-// Gestion de la connexion via cookie ou nouvel utilisateur
+// Gestion de la connexion via cookie
 if (!userId) {
-  setupLogin();
-} else {
-  setupGame();
-  startGame();
-  afficherScores();
-}
-
-/** 
- * Configuration de la partie pour les nouveaux utilisateurs
- */
-async function setupLogin() {
   const loginDiv = document.getElementById("login");
   const gameDiv = document.getElementById("game");
   const usernameInput = document.getElementById("username");
   const loginButton = document.getElementById("loginButton");
 
-  // Ajouter l'événement "Entrée" pour la validation du pseudo
-  usernameInput.addEventListener("keydown", (event) => {
-    if (event.key === "Enter") {
-      event.preventDefault(); // Empêche la soumission du formulaire si un formulaire existe
-      loginButton.click(); // Simuler un clic sur le bouton de connexion
-    }
-  });
-
+  // Si pas de cookie, on demande un pseudo
   loginButton.addEventListener("click", async () => {
     username = usernameInput.value.trim();
 
-    // Validation du pseudo (uniquement lettres, pas de chiffres ni de caractères spéciaux)
-    if (!/^[a-zA-Z]+$/.test(username)) {
-      alert("Le pseudo doit contenir uniquement des lettres (A-Z, a-z).");
-      usernameInput.value = ''; // Réinitialiser le champ
+    // Validation : autoriser uniquement les lettres (A-Z, a-z)
+    const usernameRegex = /^[a-zA-Z]+$/;
+    if (!usernameRegex.test(username)) {
+      alert("Le pseudo ne peut contenir que des lettres (A-Z, a-z). Pas de chiffres, espaces ou caractères spéciaux.");
+      usernameInput.value = ''; // On efface l'entrée utilisateur
       return;
     }
 
-    if (!username) {
+    if (username === "") {
       alert("Veuillez entrer un pseudo !");
       return;
     }
 
-    // Vérifier si le pseudo existe déjà dans la base de données
-    const usersRef = ref(db, "scores");
-    get(usersRef).then((snapshot) => {
-      const users = snapshot.val();
-      const usernamesTaken = Object.values(users).map(user => user.username);
-
-      if (usernamesTaken.includes(username)) {
-        alert("Le pseudo est déjà pris, veuillez en choisir un autre.");
-        return;
-      }
-
-      // Connexion anonyme Firebase
-      signInAnonymously(auth).then(() => {
-        userId = auth.currentUser.uid;
-        localStorage.setItem("userId", userId);
-        localStorage.setItem("username", username);
-
-        // Cacher l'écran de connexion et afficher le jeu
-        loginDiv.style.display = "none";
-        gameDiv.style.display = "block";
-
-        // Sauvegarder le pseudo dans la base de données
-        set(ref(db, 'scores/' + userId), {
-          username: username,
-          score: 0
-        });
-
-        startGame();
-        afficherScores();
-      }).catch((error) => {
-        console.error("Erreur d'authentification :", error);
-      });
-    });
+    // Connexion avec un nouveau pseudo
+    signInAnonymously(auth).then(() => {
+      userId = auth.currentUser.uid;
+      localStorage.setItem("userId", userId);
+      localStorage.setItem("username", username);
+      console.log("Utilisateur connecté anonymement !");
+      loginDiv.style.display = "none";
+      gameDiv.style.display = "block";
+      startGame();
+      afficherScores(); // Charger les scores dès la connexion
+    }).catch((error) => console.error("Erreur d'authentification :", error));
   });
-}
-
-/** 
- * Configuration de la partie pour les utilisateurs déjà connectés
- */
-function setupGame() {
-  document.getElementById("login").style.display = "none";
-  document.getElementById("game").style.display = "block";
+} else {
+  // Si déjà connecté avec cookie, on charge le jeu directement
+  const loginDiv = document.getElementById("login");
+  const gameDiv = document.getElementById("game");
+  loginDiv.style.display = "none";
+  gameDiv.style.display = "block";
   username = localStorage.getItem("username");
-
-  // Vérification si l'élément "difficulty" existe avant d'y accéder
-  const difficultyElement = document.getElementById("difficulty");
-
-  if (difficultyElement) {
-    const difficulty = difficultyElement.value;
-    maxTentatives = difficulty === "facile" ? 15 : difficulty === "moyen" ? 10 : 5; // Difficulté en fonction du choix
-    console.log("Difficulté sélectionnée : " + difficulty);
-  } else {
-    // Si l'élément "difficulty" n'existe pas, tu peux gérer cette situation
-    // Par exemple, définir une valeur par défaut
-    maxTentatives = 10;
-    console.log("Aucune difficulté définie. Utilisation de la difficulté par défaut.");
-  }
+  startGame();
+  afficherScores(); // Charger les scores dès la connexion
 }
 
-/** 
- * Démarrer une nouvelle partie
- */
+// Fonction pour démarrer une nouvelle partie
 function startGame() {
   randomNumber = Math.floor(Math.random() * 100) + 1;
   compteur = 0;
   score = 0;
 
-  // Réinitialiser les champs
   document.getElementById("proposition").value = '';
   document.querySelector(".resultat").textContent = '';
   document.querySelector(".tropHautTropBas").textContent = '';
   document.querySelector(".tentatives").textContent = '';
   document.getElementById("proposition").disabled = false;
   document.getElementById("envoyer").disabled = false;
-  document.getElementById("reset").style.display = "none";
+  document.getElementById("reset").style.display = "none"; // Reset masqué au début
 
   document.getElementById("proposition").focus();
-
-  // Réinitialiser le message d'erreur
-  document.querySelector(".tropHautTropBas").textContent = '';
-
-  // Écouter la touche "Entrée" pour la proposition
-  document.getElementById("proposition").addEventListener("keydown", (event) => {
-    if (event.key === "Enter") {
-      event.preventDefault(); // Empêche la soumission du formulaire si un formulaire existe
-      verifier(); // Appeler la fonction de vérification
-    }
-  });
 }
 
-/** 
- * Vérification de la proposition utilisateur
- */
+// Vérification de la proposition
 function verifier() {
-  const proposition = document.getElementById("proposition").value.trim();
-  const numberProposition = Number(proposition);
-
-  // Vérification si la proposition est un nombre valide entre 1 et 100
-  if (isNaN(numberProposition) || numberProposition < 1 || numberProposition > 100) {
+  const proposition = Number(document.getElementById("proposition").value);
+  if (isNaN(proposition) || proposition < 1 || proposition > 100) {
     document.querySelector(".tropHautTropBas").textContent = "Veuillez entrer un nombre valide entre 1 et 100.";
     return;
   }
-
   compteur++;
 
-  if (numberProposition === randomNumber) {
-    handleWin();
-  } else if (numberProposition < randomNumber) {
+  if (proposition === randomNumber) {
+    score = Math.max(100 - compteur * 10, 0); // Calcul du score
+    document.querySelector(".resultat").textContent = `Bravo ${username || "Invité"} ! Vous avez trouvé en ${compteur} tentatives. 🎉`;
+    document.querySelector(".tentatives").textContent = `Score gagné : ${score} points.`;
+    sauvegarderScore(username, score);
+    afficherScores(); // Met à jour le tableau des scores
+    finDeJeu();
+  } else if (proposition < randomNumber) {
     document.querySelector(".tropHautTropBas").textContent = "C'est plus grand !";
   } else {
     document.querySelector(".tropHautTropBas").textContent = "C'est plus petit !";
@@ -184,87 +115,91 @@ function verifier() {
   document.getElementById("proposition").value = '';
   document.getElementById("proposition").focus();
 
-  if (compteur === maxTentatives && numberProposition !== randomNumber) {
-    handleLoss();
+  if (compteur === 10 && proposition !== randomNumber) {
+    document.querySelector(".resultat").textContent = `Perdu ! Le nombre était ${randomNumber}. 😢`;
+    finDeJeu();
   }
 }
 
-/** 
- * Gérer une victoire
- */
-function handleWin() {
-  score = Math.max(100 - compteur * 10, 0); // Calcul du score
-  document.querySelector(".resultat").textContent = `Bravo ${username || "Invité"} ! Vous avez trouvé en ${compteur} tentatives. 🎉`;
-  document.querySelector(".tentatives").textContent = `Score gagné : ${score} points.`;
-  sauvegarderScore(username, score);
-  afficherScores();
-  finDeJeu();
-}
-
-/** 
- * Gérer une défaite
- */
-function handleLoss() {
-  document.querySelector(".resultat").textContent = `Perdu ! Le nombre était ${randomNumber}. 😢`;
-  finDeJeu();
-}
-
-/** 
- * Fin de la partie
- */
+// Désactiver les entrées de jeu et afficher "Reset"
 function finDeJeu() {
   document.getElementById("envoyer").disabled = true;
   document.getElementById("proposition").disabled = true;
-  document.getElementById("reset").style.display = "inline";
+  document.getElementById("reset").style.display = "inline"; // Affiche le bouton Reset
 }
 
-/** 
- * Sauvegarder le score d'un utilisateur
- */
+// Sauvegarder ou ajouter des points pour un utilisateur
 function sauvegarderScore(username, points) {
   const userRef = ref(db, `scores/${userId}`);
 
+  // Récupérer les points actuels de l'utilisateur avant de les ajouter
   get(userRef).then((snapshot) => {
-    const newScore = snapshot.exists() ? snapshot.val().score + points : points;
-
-    set(userRef, {
-      username: username,
-      score: newScore
-    }).then(() => console.log("Score mis à jour !"))
-      .catch((error) => console.error("Erreur enregistrement :", error));
-  }).catch((error) => console.error("Erreur récupération score :", error));
+    if (snapshot.exists()) {
+      const existingData = snapshot.val();
+      const newScore = existingData.score + points; // Ajouter les nouveaux points
+      set(userRef, {
+        username: username,
+        score: newScore // Mettre à jour avec le score cumulé
+      }).then(() => {
+        console.log("Score mis à jour avec succès !");
+      }).catch((error) => {
+        console.error("Erreur lors de l'enregistrement du score :", error);
+      });
+    } else {
+      // Si l'utilisateur n'a pas encore de score enregistré, on l'ajoute directement
+      set(userRef, {
+        username: username,
+        score: points // Enregistrer les premiers points
+      }).then(() => {
+        console.log("Score ajouté pour la première fois !");
+      }).catch((error) => {
+        console.error("Erreur lors de l'enregistrement du score :", error);
+      });
+    }
+  }).catch((error) => {
+    console.error("Erreur lors de la récupération du score :", error);
+  });
 }
 
-/** 
- * Afficher les scores dans le tableau
- */
+// Afficher les scores dans le tableau
 function afficherScores() {
   const scoresRef = ref(db, "scores");
-
   onValue(scoresRef, (snapshot) => {
     const scoresData = snapshot.val();
-    if (!scoresData) return;
+    if (!scoresData) {
+      console.log("Aucun score trouvé.");
+      return;
+    }
 
-    const scoresArray = Object.values(scoresData).sort((a, b) => b.score - a.score);
-    const scoreTable = document.querySelector("#scoreTable tbody");
+    const scoresArray = [];
+    for (const key in scoresData) {
+      scoresArray.push(scoresData[key]);
+    }
+
+    scoresArray.sort((a, b) => b.score - a.score);
+
+    const scoreTable = document.getElementById("scoreTable").querySelector("tbody");
     scoreTable.innerHTML = '';
 
     scoresArray.forEach((data, index) => {
-      const row = document.createElement("tr");
-      row.innerHTML = `<td>${index + 1}</td><td>${data.username}</td><td>${data.score}</td>`;
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td>${index + 1}</td>
+        <td>${data.username}</td>
+        <td>${data.score}</td>
+      `;
       scoreTable.appendChild(row);
     });
   });
 }
 
-// Écouter l'événement sur le bouton envoyer
-document.getElementById("envoyer")?.addEventListener("click", verifier);
+// Reset de la partie
+document.getElementById("reset").addEventListener("click", startGame);
 
-// Écouter l'événement sur le bouton reset pour recommencer le jeu
-document.getElementById("reset")?.addEventListener("click", startGame);
+// Appuyer sur Enter pour envoyer la proposition
+document.getElementById("proposition").addEventListener("keypress", (e) => {
+  if (e.key === 'Enter') verifier();
+});
 
-// Menu déroulant : vérifier si l'élément existe avant d'ajouter l'écouteur
-const difficultyElement = document.getElementById("difficulty");
-if (difficultyElement) {
-  difficultyElement.addEventListener("change", setupGame);
-}
+// Appuyer sur "Envoyer"
+document.getElementById("envoyer").addEventListener("click", verifier);

@@ -46,6 +46,21 @@ p, .resultat, .tropHautTropBas {
   text-shadow: 0 0 5px #00ff00, 0 0 10px #8aff80;
 }
 
+details summary {
+  font-size: 1.5rem; /* Augmente la taille du texte */
+  font-weight: bold; /* Met le texte en gras pour plus de visibilité */
+  color: #8aff80; /* Garder la couleur verte de la police */
+  cursor: pointer; /* Changer le curseur en pointeur pour indiquer que c'est cliquable */
+  text-shadow: 0 0 5px #00ff00, 0 0 10px #8aff80; /* Ajouter un effet de lumière verte douce */
+  transition: all 0.3s ease; /* Transition douce pour le texte */
+}
+
+details summary:hover {
+  color: #00ff00; /* Change la couleur du texte en vert plus lumineux au survol */
+  text-shadow: 0 0 15px #00ff00, 0 0 20px #8aff80; /* Augmente l'effet de glow au survol */
+}
+
+
 /* Connexion et formulaire du jeu */
 #login, #game {
   display: flex;

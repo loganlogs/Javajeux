@@ -1,265 +1,123 @@
-/* Style global */
-body {
-  font-family: 'Arial', sans-serif;
-  background-color: #222222;
-  color: #fff;
-  margin: 0;
-  padding: 0;
+/* Style du sélecteur de thème en haut à droite */
+.theme-selector {
+  position: fixed;
+  top: 20px;
+  right: 20px;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  text-align: center;
-  overflow-y: auto;
-  transition: background-color 0.5s ease, color 0.5s ease, box-shadow 0.5s ease;
+  gap: 10px;
+}
+
+.theme {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.theme:hover {
+  transform: scale(1.1); /* Effet de zoom au survol */
 }
 
 /* Thème Cyberpunk */
 .theme-cyberpunk {
   background-color: #111;
-  color: #00ff00;
+  color: neon;
   font-family: 'Courier New', Courier, monospace;
 }
 
-.theme-cyberpunk h1 {
-  font-size: 4rem;
-  text-shadow: 0 0 15px #00ff00, 0 0 20px #ff0080;
+/* Thème Lux */
+.theme-lux {
+  background-color: #fff;
+  color: #000;
+  font-family: Arial, sans-serif;
 }
 
-.theme-cyberpunk p {
-  font-size: 1.2rem;
-  color: #00ff00;
-  text-shadow: 0 0 5px #00ff00, 0 0 10px #00ff00;
-}
-
-.theme-cyberpunk button {
-  background-color: #00ff00;
-  color: black;
-}
-
-.theme-cyberpunk table {
-  background-color: #333;
-  color: #00ff00;
-}
-
-/* Thème Sakura (rose et blanc) */
-.theme-sakura {
-  background-color: #ffd8e3;
-  color: #ff66b2;
-  font-family: 'Sakura', sans-serif;
-}
-
-.theme-sakura h1 {
-  font-size: 4rem;
-  color: #ff66b2;
-  text-shadow: 0 0 10px #ff66b2, 0 0 15px #ff3399;
-}
-
-.theme-sakura p {
-  font-size: 1.2rem;
-  color: #ff66b2;
-  text-shadow: 0 0 5px #ff66b2, 0 0 10px #ff3399;
-}
-
-.theme-sakura button {
-  background-color: #ff66b2;
-  color: white;
-  border: 2px solid #ff3399;
-}
-
-.theme-sakura table {
-  background-color: #ffe6f1;
-  color: #ff66b2;
-}
-
-.theme-sakura .social-links li a {
-  background-color: #ff66b2;
-  color: white;
-  box-shadow: 0 0 15px #ff66b2;
-}
-
-.theme-sakura .social-links li a:hover {
-  background-color: #ff3399;
-  box-shadow: 0 0 15px #ff3399;
-}
-
-/* Thème Horror (noir et rouge) */
+/* Thème Horror */
 .theme-horror {
   background-color: #2a2a2a;
   color: red;
   font-family: 'Creepster', cursive;
 }
 
-.theme-horror h1 {
-  font-size: 4rem;
-  color: red;
-  text-shadow: 0 0 15px red, 0 0 20px #8b0000;
-}
-
-.theme-horror p {
-  font-size: 1.2rem;
-  color: red;
-  text-shadow: 0 0 5px red, 0 0 10px #8b0000;
-}
-
-.theme-horror button {
-  background-color: #8b0000;
+/* Thème Sakura */
+.theme-sakura {
+  background-color: pink;
   color: white;
+  font-family: 'Sakura', sans-serif;
 }
 
-.theme-horror table {
-  background-color: #333;
-  color: red;
-}
-
-.theme-horror .social-links li a {
-  background-color: #8b0000;
-  color: white;
-  box-shadow: 0 0 15px red;
-}
-
-.theme-horror .social-links li a:hover {
-  background-color: #b30000;
-  box-shadow: 0 0 15px #b30000;
-}
-
-/* Thème Lux (bleu et doré) */
-.theme-lux {
-  background-color: #001f3d;
-  color: #ffcc00;
-  font-family: 'Arial', sans-serif;
-}
-
-.theme-lux h1 {
-  font-size: 4rem;
-  color: #ffcc00;
-  text-shadow: 0 0 10px #ffcc00, 0 0 15px #b39b00;
-}
-
-.theme-lux p {
-  font-size: 1.2rem;
-  color: #ffcc00;
-  text-shadow: 0 0 5px #ffcc00, 0 0 10px #b39b00;
-}
-
-.theme-lux button {
-  background-color: #ffcc00;
-  color: #001f3d;
-  border: 2px solid #b39b00;
-}
-
-.theme-lux table {
-  background-color: #002b4d;
-  color: #ffcc00;
-}
-
-.theme-lux .social-links li a {
-  background-color: #ffcc00;
-  color: #001f3d;
-  box-shadow: 0 0 15px #ffcc00;
-}
-
-.theme-lux .social-links li a:hover {
-  background-color: #b39b00;
-  box-shadow: 0 0 15px #b39b00;
-}
-
-/* Style du sélecteur de thème */
-.theme-selector {
-  position: fixed;
-  top: 20px;
-  right: 20px;
+/* Styles généraux */
+body {
+  font-family: 'Share Tech Mono', monospace;
+  background: radial-gradient(circle, #446e22, #0a0a0a); /* Fond sombre doux */
+  color: #8aff80; /* Vert clair, pour un contraste plus doux */
   display: flex;
-  gap: 15px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  overflow: hidden;
+  padding: 20px;
+  text-align: center;
+  overflow-y: auto; /* Permet le défilement vertical si nécessaire */
 }
 
-.theme {
-  width: 50px;
-  height: 50px;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: transform 0.3s ease, opacity 0.3s ease;
-}
-
-.theme:hover {
-  transform: scale(1.2);
-  opacity: 0.8;
-}
-
-.theme-cyberpunk .theme {
-  background-color: #00ff00;
-}
-
-.theme-sakura .theme {
-  background-color: #ff66b2;
-}
-
-.theme-horror .theme {
-  background-color: #8b0000;
-}
-
-.theme-lux .theme {
-  background-color: #ffcc00;
-}
-
-/* Boutons généraux */
+/* Style des boutons et autres éléments */
 button {
-  padding: 15px 30px;
-  font-size: 1.2rem;
+  margin: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
   border: none;
   border-radius: 5px;
-  cursor: pointer;
   transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 button:hover {
-  background-color: #45a049;
-  transform: scale(1.05);
+  background-color: #555;
 }
 
-/* Entrées de texte */
-input[type="text"], input[type="number"], select {
+input[type="text"], input[type="number"] {
+  display: block;
+  margin: 10px auto;
   padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
   font-size: 1rem;
-  margin: 10px 0;
-  width: 300px;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 10px;
+  border: 2px solid #8aff80;
+  background: #2a2a2a;
+  color: #8aff80;
+  box-shadow: 0 0 5px #00ff00;
+  outline: none;
+  transition: 0.3s ease;
+  width: 100%;
+  max-width: 300px;
 }
 
 input[type="text"]:focus, input[type="number"]:focus {
-  background-color: #333;
   box-shadow: 0 0 10px #00ff00;
 }
 
-/* Style du footer */
-footer {
-  background-color: #222222;
-  color: #8aff80;
-  padding: 20px;
-  text-align: center;
+/* Tableaux des scores */
+#scoreTableContainer {
   width: 100%;
-  position: fixed;
-  bottom: 0;
-  left: 0;
+  max-height: 400px;
+  overflow-y: auto;
+  border: 2px solid #4CAF50; /* Bordure verte */
+  border-radius: 10px;
+  margin-top: 20px;
 }
 
-/* Style du tableau */
 #scoreTable {
   width: 100%;
-  max-width: 800px;
-  margin-top: 30px;
   border-collapse: collapse;
-  border-radius: 10px;
-  overflow: hidden;
+  margin-top: 10px;
 }
 
 #scoreTable th, #scoreTable td {
-  padding: 15px;
-  text-align: center;
-  border-bottom: 1px solid #666;
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #333333;
 }
 
 #scoreTable th {
@@ -268,55 +126,52 @@ footer {
 }
 
 #scoreTable tr:nth-child(even) {
-  background-color: #444;
+  background-color: #3a3a3a;
 }
 
 #scoreTable tr:hover {
-  background-color: #555;
-  cursor: pointer;
+  background-color: #5a5a5a;
 }
 
-/* Transitions */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* Section des profils */
+#userProfileSection {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #2a2a2a;
+  border-radius: 8px;
 }
 
-h1, h2, h3 {
-  animation: fadeInUp 1s ease-out;
+#userProfileSection.open {
+  max-height: 400px;
+  padding: 10px;
 }
 
-/* Effet sur les icônes sociales */
-.social-links li a {
-  display: inline-block;
-  margin: 10px;
-  padding: 15px 25px;
-  background-color: #444444;
-  color: #fff;
-  border-radius: 30px;
-  font-size: 1.2rem;
-  box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
-  transition: background-color 0.3s ease, transform 0.3s ease;
+#userProfileSection h3, #userProfileSection ul {
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
 }
 
-.social-links li a:hover {
-  background-color: #555;
-  transform: scale(1.1);
+#userProfileSection.open h3, #userProfileSection.open ul {
+  opacity: 1;
 }
 
-/* Styles pour les liens */
-a {
-  color: #00ff00;
+#userProfileSection ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+#userProfileSection ul li a {
   text-decoration: none;
+  color: #8aff80;
 }
 
-a:hover {
-  color: #ffcc00;
-  text-decoration: underline;
+/* Style pour les icônes des réseaux sociaux */
+.social-links li a {
+  text-decoration: none;
+  color: #8aff80;
+  font-size: 1.2rem;
+  padding: 10px 20px;
+  background-color: #444444;
+  border-radius: 30px;
+  box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
 }

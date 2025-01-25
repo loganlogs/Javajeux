@@ -237,3 +237,30 @@ button#loginButton:hover {
 .toggle-btn:hover {
   color: #00ff00;
 }
+
+/* MENU DEROULANT */
+#difficulty {
+  margin-top: 20px;
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 10px;
+  border: 2px solid #8aff80; /* Bordure vert clair */
+  background: #2a2a2a; /* Fond sombre */
+  color: #8aff80; /* Texte en vert clair */
+  box-shadow: 0 0 5px #00ff00;
+  transition: 0.3s ease;
+  width: 100%; /* Largeur responsive */
+  max-width: 300px;
+}
+
+/* Style pour les options du menu déroulant */
+#difficulty option {
+  background: #2a2a2a;
+  color: #8aff80;
+  padding: 10px;
+}
+
+#difficulty option:hover {
+  background-color: #1a1a1a;
+  color: #00ff00;
+}

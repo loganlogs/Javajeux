@@ -216,3 +216,14 @@ async function verifierPseudo(pseudo) {
   }
 }
 
+// Sélection des thèmes
+const themes = document.querySelectorAll('.theme');
+
+themes.forEach(theme => {
+  theme.addEventListener('click', () => {
+    document.body.className = ''; // Réinitialise toutes les classes
+
+    // Ajoute la classe du thème sélectionné
+    document.body.classList.add(theme.id);
+  });
+});

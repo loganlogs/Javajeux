@@ -24,6 +24,7 @@ let username = localStorage.getItem("username");
 let randomNumber;
 let compteur = 0;
 let score = 0;
+let maxTentatives = 10; // Par défaut, 10 tentatives
 
 // Gestion de la connexion via cookie ou nouvel utilisateur
 if (!userId) {
@@ -42,6 +43,13 @@ function setupLogin() {
   const gameDiv = document.getElementById("game");
   const usernameInput = document.getElementById("username");
   const loginButton = document.getElementById("loginButton");
+
+  // Ajouter l'événement "Entrée" pour la validation du pseudo
+  usernameInput.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      loginButton.click(); // Simuler un clic sur le bouton de connexion
+    }
+  });
 
   loginButton.addEventListener("click", async () => {
     username = usernameInput.value.trim();
@@ -83,6 +91,11 @@ function setupGame() {
   document.getElementById("login").style.display = "none";
   document.getElementById("game").style.display = "block";
   username = localStorage.getItem("username");
+
+  // Récupérer la difficulté choisie
+  const difficulty = document.getElementById("difficulty").value;
+  maxTentatives = difficulty === "facile" ? 15 : difficulty === "moyen" ? 10 : 5; // Difficulté en fonction du choix
+  console.log("Difficulté sélectionnée : " + difficulty);
 }
 
 /** 
@@ -130,7 +143,7 @@ function verifier() {
   document.getElementById("proposition").value = '';
   document.getElementById("proposition").focus();
 
-  if (compteur === 10 && proposition !== randomNumber) {
+  if (compteur === maxTentatives && proposition !== randomNumber) {
     handleLoss();
   }
 }
@@ -208,3 +221,6 @@ document.getElementById("envoyer").addEventListener("click", verifier);
 
 // Écouter l'événement sur le bouton reset pour recommencer le jeu
 document.getElementById("reset").addEventListener("click", startGame);
+
+// Menu déroulant
+document.getElementById("difficulty").addEventListener("change", setupGame);

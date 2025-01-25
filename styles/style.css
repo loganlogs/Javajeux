@@ -20,28 +20,33 @@
 }
 
 /* Thème Cyberpunk */
-.cyberpunk {
-  background-color: #00ff00; /* Vert fluo */
-  color: #00ff00;
-}
-
-/* Thème Sakura */
-.sakura {
-  background-color: #ff69b4; /* Rose Sakura */
-  color: #ff69b4;
+.theme-cyberpunk {
+  background-color: #111;
+  color: neon;
+  font-family: 'Courier New', Courier, monospace;
 }
 
 /* Thème Lux */
-.lux {
-  background-color: #fff700; /* Jaune Lux */
-  color: #fff700;
+.theme-lux {
+  background-color: #fff;
+  color: #000;
+  font-family: Arial, sans-serif;
 }
 
 /* Thème Horror */
-.horror {
-  background-color: #8b0000; /* Rouge sang */
-  color: #8b0000;
+.theme-horror {
+  background-color: #2a2a2a;
+  color: red;
+  font-family: 'Creepster', cursive;
 }
+
+/* Thème Sakura */
+.theme-sakura {
+  background-color: pink;
+  color: white;
+  font-family: 'Sakura', sans-serif;
+}
+
 
 /* Styles généraux */
 body {

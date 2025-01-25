@@ -1,132 +1,417 @@
-/* Déclaration des variables CSS */
-:root {
-  --background-color: #111;
-  --text-color: neon;
-  --link-color: #8aff80;
-  --highlight-color: #00ff00;
-  --button-bg: #2a2a2a;
-  --border-color: #8aff80;
-  --scrollbar-color: #4CAF50;
-  --table-header-bg: #4CAF50;
-  --table-row-bg: #3a3a3a;
-  --table-row-hover-bg: #5a5a5a;
+/* Style du sélecteur de thème en haut à droite */
+.theme-selector {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  gap: 10px;
+}
+
+.theme {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.theme:hover {
+  transform: scale(1.1); /* Effet de zoom au survol */
 }
 
 /* Thème Cyberpunk */
 .theme-cyberpunk {
-  --background-color: #111;
-  --text-color: neon;
-  --highlight-color: #00ff00;
-  --button-bg: #2a2a2a;
-  --border-color: #8aff80;
-  --scrollbar-color: #4CAF50;
-  --table-header-bg: #4CAF50;
-  --table-row-bg: #3a3a3a;
-  --table-row-hover-bg: #5a5a5a;
+  background-color: #111;
+  color: neon;
+  font-family: 'Courier New', Courier, monospace;
 }
 
 /* Thème Lux */
 .theme-lux {
-  --background-color: #fff;
-  --text-color: #000;
-  --highlight-color: #ff9800;
-  --button-bg: #f3f3f3;
-  --border-color: #000;
-  --scrollbar-color: #FF6347;
-  --table-header-bg: #FF6347;
-  --table-row-bg: #fff;
-  --table-row-hover-bg: #f0f0f0;
+  background-color: #fff;
+  color: #000;
+  font-family: Arial, sans-serif;
 }
 
 /* Thème Horror */
 .theme-horror {
-  --background-color: #2a2a2a;
-  --text-color: red;
-  --highlight-color: #ff0000;
-  --button-bg: #5a0a0a;
-  --border-color: #ff0000;
-  --scrollbar-color: #ff4500;
-  --table-header-bg: #ff4500;
-  --table-row-bg: #4a4a4a;
-  --table-row-hover-bg: #800000;
+  background-color: #2a2a2a;
+  color: red;
+  font-family: 'Creepster', cursive;
 }
 
 /* Thème Sakura */
 .theme-sakura {
-  --background-color: pink;
-  --text-color: white;
-  --highlight-color: #ff69b4;
-  --button-bg: #ffb6c1;
-  --border-color: #ff69b4;
-  --scrollbar-color: #ff1493;
-  --table-header-bg: #ff1493;
-  --table-row-bg: #ffb6c1;
-  --table-row-hover-bg: #ff80bf;
+  background-color: pink;
+  color: white;
+  font-family: 'Sakura', sans-serif;
 }
+
+/* Ajout d'un peu de style pour les boutons de changement de thème */
+#themeSelector button {
+  margin: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  background-color: #333;
+  color: #fff;
+  border-radius: 5px;
+}
+
+#themeSelector button:hover {
+  background-color: #555;
+}
+
 
 /* Styles généraux */
 body {
-  background-color: var(--background-color);
-  color: var(--text-color);
   font-family: 'Share Tech Mono', monospace;
-  text-align: center;
+  background: radial-gradient(circle, #446e22, #0a0a0a); /* Fond sombre doux */
+  color: #8aff80; /* Vert clair, pour un contraste plus doux */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  overflow: hidden;
   padding: 20px;
+  text-align: center;
+  overflow-y: auto; /* Permet le défilement vertical si nécessaire */
 }
 
-h1, h2, h3 {
-  color: var(--text-color);
-  text-shadow: 0 0 10px var(--highlight-color);
+h1 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  color: #8aff80; /* Couleur vert clair */
+  text-shadow: 0 0 10px #00ff00, 0 0 20px #8aff80; /* Lumière verte douce */
+  animation: glow 2s infinite alternate;
 }
 
-button {
-  background-color: var(--button-bg);
-  color: var(--text-color);
-  border: 2px solid var(--border-color);
-  border-radius: 8px;
-  padding: 10px 20px;
-  cursor: pointer;
+@keyframes glow {
+  from {
+    text-shadow: 0 0 10px #00ff00, 0 0 20px #8aff80;
+  }
+  to {
+    text-shadow: 0 0 20px #8aff80, 0 0 40px #00ff00;
+  }
 }
 
-button:hover {
-  background-color: var(--highlight-color);
+details summary {
+  font-size: 1.5rem; /* Augmente la taille du texte */
+  font-weight: bold; /* Met le texte en gras pour plus de visibilité */
+  color: #8aff80; /* Garder la couleur verte de la police */
+  cursor: pointer; /* Changer le curseur en pointeur pour indiquer que c'est cliquable */
+  text-shadow: 0 0 5px #00ff00, 0 0 10px #8aff80; /* Ajouter un effet de lumière verte douce */
+  transition: all 0.3s ease; /* Transition douce pour le texte */
+}
+
+details summary:hover {
+  color: #00ff00; /* Change la couleur du texte en vert plus lumineux au survol */
+  text-shadow: 0 0 15px #00ff00, 0 0 20px #8aff80; /* Augmente l'effet de glow au survol */
+}
+
+/* Style des paragraphes */
+p, .resultat, .tropHautTropBas {
+  font-size: 1.2rem;
+  color: #8aff80; /* Texte en vert clair */
+  text-align: center;
+  margin: 10px 0;
+  text-shadow: 0 0 5px #00ff00, 0 0 10px #8aff80;
+}
+
+/* Connexion et formulaire du jeu */
+#login, #game {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%; /* Prendre toute la largeur disponible */
+  max-width: 500px; /* Limite de largeur */
+  text-align: center; /* Centre le texte dans ces sections */
+}
+
+input[type="text"], input[type="number"], button {
+  display: block;
+  margin: 10px auto; /* Centrer avec une marge automatique */
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 10px;
+  border: 2px solid #8aff80; /* Bordure vert clair */
+  background: #2a2a2a; /* Fond sombre mais doux */
+  color: #8aff80; /* Texte en vert clair */
+  box-shadow: 0 0 5px #00ff00;
+  outline: none;
+  transition: 0.3s ease;
+  width: 100%; /* Pour que les éléments prennent toute la largeur disponible */
+  max-width: 300px; /* Limite de largeur */
+}
+
+input[type="text"]:focus, input[type="number"]:focus {
+  box-shadow: 0 0 10px #00ff00;
+}
+
+button:hover, input[type="submit"]:hover {
+  background-color: #1a1a1a; /* Fond plus foncé au survol */
+  color: #8aff80;
+  border: 2px solid #00ff00;
+  box-shadow: 0 0 10px #00ff00;
+}
+
+/* Amélioration du style pour le bouton "Jouer" */
+button#loginButton {
+  background: linear-gradient(45deg, #00ff00, #008000);
   color: white;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 12px 20px;
+  font-size: 1.2rem;
+  border: none;
+  box-shadow: 0 0 15px #00ff00, 0 0 30px #8aff80;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+button#loginButton:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px #00ff00, 0 0 40px #8aff80;
+}
+
+/* Style de la table des scores */
 #scoreTableContainer {
-  border: 2px solid var(--border-color);
+  width: 100%;
+  max-height: 400px;
+  overflow-y: auto;
+  border: 2px solid #4CAF50; /* Bordure verte */
   border-radius: 10px;
   margin-top: 20px;
 }
 
+/* Style de la scrollbar */
+#scoreTableContainer::-webkit-scrollbar {
+  width: 12px;
+}
+
+#scoreTableContainer::-webkit-scrollbar-thumb {
+  background-color: #4CAF50;
+  border-radius: 10px;
+}
+
+#scoreTableContainer::-webkit-scrollbar-track {
+  background-color: #222222; /* Fond plus sombre pour la track */
+  border-radius: 10px;
+}
+
+/* Tableaux des scores */
 #scoreTable {
   width: 100%;
   border-collapse: collapse;
+  margin-top: 10px;
+  background: #2a2a2a; /* Fond sombre pour la table */
 }
 
 #scoreTable th, #scoreTable td {
   padding: 12px;
   text-align: left;
+  border-bottom: 1px solid #333333; /* Légère séparation entre les lignes */
 }
 
 #scoreTable th {
-  background-color: var(--table-header-bg);
+  background-color: #4CAF50;
   color: white;
 }
 
 #scoreTable tr:nth-child(even) {
-  background-color: var(--table-row-bg);
+  background-color: #3a3a3a; /* Fond légèrement plus clair pour les lignes paires */
 }
 
 #scoreTable tr:hover {
-  background-color: var(--table-row-hover-bg);
+  background-color: #5a5a5a; /* Survol de ligne avec un fond un peu plus clair */
+  cursor: pointer; /* Changer le curseur pour indiquer que c'est cliquable */
 }
 
+/* Section des profils */
+#userProfileSection {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #2a2a2a;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  max-height: 0; /* Initialement masqué */
+  overflow: hidden;
+  transition: max-height 0.5s ease-in-out, padding 0.5s ease-in-out;
+}
+
+#userProfileSection.open {
+  max-height: 400px; /* Hauteur maximale lorsqu'ouverte */
+  padding: 10px;
+}
+
+#userProfileSection h3, #userProfileSection ul {
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+#userProfileSection.open h3, #userProfileSection.open ul {
+  opacity: 1;
+}
+
+#userProfileSection ul {
+  list-style-type: none;
+  padding: 0;
+  text-align: center;
+}
+
+#userProfileSection ul li {
+  margin: 8px 0;
+}
+
+/* Ajout des icônes pour les réseaux sociaux */
+#userProfileSection ul li a {
+  text-decoration: none;
+  color: #8aff80;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+#userProfileSection ul li a:hover {
+  color: #00ff00; /* Couleur de survol verte */
+  text-decoration: underline; /* Ajouter un soulignement lors du survol */
+  transition: color 0.3s ease, text-decoration 0.3s ease;
+}
+
+/* Bouton pour la section rétractable */
+.toggle-btn {
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  color: #8aff80;
+  cursor: pointer;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.toggle-btn.rotate {
+  transform: rotate(180deg);
+}
+
+.toggle-btn:hover {
+  color: #00ff00;
+}
+
+/* MENU DEROULANT */
+#difficulty {
+  margin-top: 20px;
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 10px;
+  border: 2px solid #8aff80; /* Bordure vert clair */
+  background: #2a2a2a; /* Fond sombre */
+  color: #8aff80; /* Texte en vert clair */
+  box-shadow: 0 0 5px #00ff00;
+  transition: 0.3s ease;
+  width: 100%; /* Largeur responsive */
+  max-width: 300px;
+}
+
+/* Style pour les options du menu déroulant */
+#difficulty option {
+  background: #2a2a2a;
+  color: #8aff80;
+  padding: 10px;
+}
+
+#difficulty option:hover {
+  background-color: #1a1a1a;
+  color: #00ff00;
+}
+
+/* Effet d'ombre sur les éléments interactifs */
+input[type="text"]:focus, input[type="number"]:focus, button:hover {
+  box-shadow: 0 0 15px #00ff00; /* Ombre verte */
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+/* Animation pour l'apparition des titres de section */
+h2, h3 {
+  opacity: 0;
+  transform: translateY(-20px);
+  animation: fadeInUp 1s forwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Survol des lignes dans le tableau des scores */
+#scoreTable tr:hover {
+  background-color: #5a5a5a; /* Survol de ligne avec fond plus clair */
+  cursor: pointer; /* Changer le curseur pour indiquer que c'est cliquable */
+}
+
+/* Ajouter un effet de survol pour les colonnes */
+#scoreTable td:last-child:hover {
+  color: #00ff00; /* Colorier le score en vert lors du survol */
+}
+
+/* Survol des liens dans la section "Suivez-moi" */
+#userProfileSection ul li a:hover {
+  color: #00ff00; /* Couleur de survol verte */
+  text-decoration: underline; /* Ajouter un soulignement lors du survol */
+  transition: color 0.3s ease, text-decoration 0.3s ease;
+}
+
+/* Styles spécifiques pour les réseaux sociaux avec effets de bouton */
+.social-links {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+.social-links li {
+  margin: 5px 0;
+}
+
+.social-links li a {
+  text-decoration: none;
+  color: #8aff80; /* Texte en vert clair */
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 20px; /* Un peu d'espace autour du texte */
+  background-color: #444444; /* Fond gris */
+  border-radius: 30px;
+  box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.social-links li a:hover {
+  background-color: #5a5a5a;
+  transform: scale(1.05);
+}
+
+/* Ajout de styles pour un footer */
 footer {
   background-color: #222222;
-  color: var(--text-color);
+  color: #8aff80;
   padding: 20px;
   text-align: center;
+  width: 100%;
   position: fixed;
   bottom: 0;
-  width: 100%;
+  left: 0;
 }

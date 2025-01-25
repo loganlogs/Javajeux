@@ -58,28 +58,23 @@ if (!userId) {
       }
 
       // Connexion avec un nouveau pseudo
-      signInAnonymously(auth)
-        .then(() => {
-          auth.onAuthStateChanged(user => {
-            if (user) {
-              console.log("Utilisateur authentifié :", user.uid);
+      await signInAnonymously(auth);
+      auth.onAuthStateChanged(user => {
+        if (user) {
+          console.log("Utilisateur authentifié :", user.uid);
 
-              // L'utilisateur est authentifié, on sauvegarde son ID
-              userId = user.uid;
-              localStorage.setItem("userId", userId);
-              localStorage.setItem("username", username);
+          // L'utilisateur est authentifié, on sauvegarde son ID
+          userId = user.uid;
+          localStorage.setItem("userId", userId);
+          localStorage.setItem("username", username);
 
-              loginDiv.style.display = "none";
-              gameDiv.style.display = "block";
+          loginDiv.style.display = "none";
+          gameDiv.style.display = "block";
 
-              startGame();
-              afficherScores(); // Charger les scores dès la connexion
-            } else {
-              console.log("Utilisateur non authentifié");
-            }
-          });
-        })
-        .catch((error) => console.error("Erreur d'authentification :", error));
+          startGame();
+          afficherScores(); // Charger les scores dès la connexion
+        }
+      });
     } catch (error) {
       console.error("Erreur lors de la vérification :", error);
       alert("Impossible de vérifier le pseudo en ce moment. Réessayez plus tard.");
@@ -212,7 +207,11 @@ async function verifierPseudo(pseudo) {
     }
     return true; // Si aucune donnée, le pseudo est unique
   } catch (error) {
-    console.error("Erreur lors de la vérification du pseudo :", error);
+    if (error.code === 'PERMISSION_DENIED') {
+      console.error("Permission refusée. Vérifiez les règles de sécurité Firebase.");
+    } else {
+      console.error("Erreur inconnue lors de la vérification du pseudo :", error);
+    }
     throw error; // Laisser l'erreur remonter pour être gérée
   }
 }
